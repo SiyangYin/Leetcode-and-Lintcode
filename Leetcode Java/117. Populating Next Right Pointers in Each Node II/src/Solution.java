@@ -1,0 +1,55 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Solution {
+    public Node connect(Node root) {
+        if (root == null) {
+            return null;
+        }
+        
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(root);
+        
+        Node prev = null;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                Node cur = queue.poll();
+                if (cur.left != null) {
+                    queue.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.offer(cur.right);
+                }
+                
+                if (i == 0) {
+                    prev = cur;
+                } else {
+                    prev.next = cur;
+                    prev = cur;
+                }
+            }
+        }
+        
+        return root;
+    }
+}
+
+class Node {
+    public int val;
+    public Node left, right, next;
+    
+    public Node() {
+    }
+    
+    public Node(int val) {
+        this.val = val;
+    }
+    
+    public Node(int val, Node left, Node right, Node next) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+        this.next = next;
+    }
+}

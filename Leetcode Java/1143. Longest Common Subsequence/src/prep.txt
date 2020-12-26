@@ -1,0 +1,6 @@
+abcde
+
+ace
+
+f(n, m) = f(n-1, m-1) + 1     s[n],t[m]
+        = max (f(n,m-1), f(n-1,m))
