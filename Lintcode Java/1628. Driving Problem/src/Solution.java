@@ -1,5 +1,4 @@
 public class Solution {
-    
     /**
      * @param L: the length
      * @param W: the width
