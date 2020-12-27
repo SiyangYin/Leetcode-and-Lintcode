@@ -24,10 +24,11 @@ public class Solution {
                 j = next[j];
             }
         }
-        if (i - j > t.length - p.length)
+        if (i - j > t.length - p.length) {
             return -1;
-        else
+        } else {
             return i - j;
+        }
     }
     
     public static int[] buildNext(String s) {
@@ -38,8 +39,7 @@ public class Solution {
             if (0 > t || p[j] == p[t]) {
                 next[++j] = ++t;
                 next[j] = (p[j] != p[t]) ? t : next[t]; // greedy
-            }
-            else {
+            } else {
                 t = next[t];
             }
         }
