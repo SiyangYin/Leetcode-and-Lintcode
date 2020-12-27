@@ -15,11 +15,12 @@ public class Solution {
             TreeNode y = queue.poll();
             if (x == null && y == null) {
                 continue;
-                // return true;
             }
+            
             if ((x == null || y == null) || (x.val != y.val)) {
                 return false;
             }
+            
             queue.offer(x.left);
             queue.offer(y.right);
             queue.offer(x.right);
