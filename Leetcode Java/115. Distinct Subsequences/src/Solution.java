@@ -11,12 +11,17 @@ public class Solution {
     }
     
     private int dfs(int i, int j, String s, String t, int[][] dp) {
-        if (s.length() - i < t.length() - j) {
+        if (j == t.length()) {
+            return 1;
+        }
+        
+        if (i == s.length()) {
             return 0;
         }
         
-        if (j == t.length()) {
-            return 1;
+        if (s.length() - i < t.length() - j) {
+            dp[i][j] = 0;
+            return 0;
         }
         
         if (dp[i][j] != -1) {
