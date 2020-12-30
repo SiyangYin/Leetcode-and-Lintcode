@@ -22,4 +22,8 @@ public class Solution {
         
         return res;
     }
+    
+    public static void main(String[] args) {
+        System.out.println(new Solution().musicPairs(new int[]{10, 50, 90, 30}));
+    }
 }
