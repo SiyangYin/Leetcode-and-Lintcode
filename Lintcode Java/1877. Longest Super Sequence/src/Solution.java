@@ -9,20 +9,12 @@ public class Solution {
     public int[] longestSuperSequence(int[] nums) {
         // write your code here
         int[] count = new int[3001];
+        int maxCount = 0, maxCountNum = 0;
         for (int num : nums) {
             count[num]++;
-        }
-        
-        int maxCount = 0, maxCountNum = 0;
-        PriorityQueue<Integer> minHeap = new PriorityQueue<>((x, y) -> Integer.compare(count[x], count[y]));
-        for (int i = 0; i < count.length; i++) {
-            if (count[i] > 0) {
-                minHeap.offer(i);
-            }
-            
-            if (count[i] > maxCount) {
-                maxCount = count[i];
-                maxCountNum = i;
+            if (count[num] > maxCount) {
+                maxCount = count[num];
+                maxCountNum = num;
             }
         }
         
@@ -30,9 +22,17 @@ public class Solution {
             return nums;
         }
         
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>((x, y) -> Integer.compare(count[x], count[y]));
+        for (int i = 0; i < count.length; i++) {
+            if (count[i] > 0) {
+                minHeap.offer(i);
+            }
+        }
+        
+        
         int maxLen = 0, mostCount = 0;
         while (!minHeap.isEmpty()) {
-            int cur = minHeap.poll();
+            int cur = minHeap.poll(), curCount = count[cur];
             if ((count[cur] - 1) * (minHeap.size() + 1) + 1 > maxLen) {
                 maxLen = (count[cur] - 1) * (minHeap.size() + 1) + 1;
                 mostCount = count[cur] - 1;
@@ -41,6 +41,10 @@ public class Solution {
             if (count[cur] * (minHeap.size() + 1) + 1 > maxLen && maxCount > count[cur]) {
                 maxLen = count[cur] * (minHeap.size() + 1) + 1;
                 mostCount = count[cur];
+            }
+            
+            while (!minHeap.isEmpty() && count[minHeap.peek()] == curCount) {
+                minHeap.poll();
             }
         }
         
