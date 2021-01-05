@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 enum Direction {
-    UP, DOWN;
+    UP, DOWN
 }
 
 enum Status {
@@ -14,7 +14,6 @@ class Request {
     
     public Request(int l) {
         level = l;
-        
     }
     
     public int getLevel() {
@@ -89,41 +88,18 @@ public class Elevator {
     
     public void handleExternalRequest(ExternalRequest r) {
         // Write your code here
-        Direction direction = r.getDirection();
-        if (direction == Direction.UP) {
-            upStops.set(r.getLevel() - 1, true);
-            if (noRequests(downStops)) {
-                status = Status.UP;
-            }
-        } else {
-            downStops.set(r.getLevel() - 1, true);
-            if (noRequests(upStops)) {
-                status = Status.DOWN;
-            }
-        }
     }
     
     public void handleInternalRequest(InternalRequest r) {
         // Write your code here
-        if (status == Status.UP) {
-            if (r.getLevel() >= currLevel + 1) {
-                upStops.set(r.getLevel() - 1, true);
-            }
-        } else if (status == Status.DOWN) {
-            if (r.getLevel() <= currLevel + 1) {
-                downStops.set(r.getLevel() - 1, true);
-            }
-        }
     }
     
     public void openGate() throws Exception {
         // Write your code here
-        
     }
     
     public void closeGate() {
         // Write your code here
-        
     }
     
     private boolean noRequests(List<Boolean> stops) {
@@ -147,6 +123,6 @@ public class Elevator {
     
     public static void main(String[] args) {
         Elevator elevator = new Elevator(5);
-        elevator.handleExternalRequest(new ExternalRequest(3, Direction.DOWN));
+        
     }
 }
