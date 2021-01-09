@@ -16,9 +16,7 @@ public class Solution {
         }
     
         Arrays.sort(nums);
-        boolean[] visited = new boolean[nums.length];
-        
-        dfs(nums, visited, new ArrayList<>(), res);
+        dfs(nums, new boolean[nums.length], new ArrayList<>(), res);
         
         return res;
     }

@@ -88,6 +88,7 @@ public class Elevator {
     
     public void handleExternalRequest(ExternalRequest r) {
         // Write your code here
+        
     }
     
     public void handleInternalRequest(InternalRequest r) {
