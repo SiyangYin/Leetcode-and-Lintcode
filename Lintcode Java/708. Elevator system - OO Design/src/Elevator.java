@@ -88,19 +88,82 @@ public class Elevator {
     
     public void handleExternalRequest(ExternalRequest r) {
         // Write your code here
-        
+        if (r.getDirection() == Direction.UP) {
+            upStops.set(r.getLevel() - 1, true);
+            if (noRequests(downStops)) {
+                status = Status.UP;
+            }
+        } else if (r.getDirection() == Direction.DOWN) {
+            downStops.set(r.getLevel() - 1, true);
+            if (noRequests(upStops)) {
+                status = Status.DOWN;
+            }
+        }
     }
     
     public void handleInternalRequest(InternalRequest r) {
         // Write your code here
+        if (status == Status.UP) {
+            if (r.getLevel() >= currLevel + 1) {
+                upStops.set(r.getLevel() - 1, true);
+            }
+        } else if (status == Status.DOWN) {
+            if (r.getLevel() <= currLevel - 1) {
+                downStops.set(r.getLevel() - 1, true);
+            }
+        }
     }
     
     public void openGate() throws Exception {
         // Write your code here
+        if (status == Status.UP) {
+            for (int i = 0; i < upStops.size(); i++) {
+                int nextLevel = (currLevel + i) % upStops.size();
+                if (upStops.get(nextLevel)) {
+                    currLevel = nextLevel;
+                    upStops.set(nextLevel, false);
+                    break;
+                }
+            }
+        } else if (status == Status.DOWN) {
+            for (int i = 0; i < downStops.size(); i++) {
+                int nextLevel = (currLevel + downStops.size() - i) % downStops.size();
+                if (downStops.get(nextLevel)) {
+                    currLevel = nextLevel;
+                    downStops.set(nextLevel, false);
+                    break;
+                }
+            }
+        }
     }
     
     public void closeGate() {
         // Write your code here
+        if (status == Status.IDLE) {
+            if (noRequests(downStops)) {
+                status = Status.UP;
+                return;
+            }
+            if (noRequests(upStops)) {
+                status = Status.DOWN;
+            }
+        } else if (status == Status.UP) {
+            if (noRequests(upStops)) {
+                if (noRequests(downStops)) {
+                    status = Status.IDLE;
+                } else {
+                    status = Status.DOWN;
+                }
+            }
+        } else {
+            if (noRequests(downStops)) {
+                if (noRequests(upStops)) {
+                    status = Status.IDLE;
+                } else {
+                    status = Status.UP;
+                }
+            }
+        }
     }
     
     private boolean noRequests(List<Boolean> stops) {
@@ -120,10 +183,5 @@ public class Elevator {
                 + ".\ndown stop list looks like:  " + downStops
                 + ".\n*****************************************\n";
         return description;
-    }
-    
-    public static void main(String[] args) {
-        Elevator elevator = new Elevator(5);
-        
     }
 }
