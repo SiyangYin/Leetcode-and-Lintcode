@@ -3,21 +3,16 @@ import java.util.*;
 public class Solution {
     public List<String> findAllConcatenatedWordsInADict(String[] words) {
         List<String> res = new ArrayList<>();
+        Arrays.sort(words, (w1, w2) -> Integer.compare(w1.length(), w2.length()));
+        
         Set<String> set = new HashSet<>();
         for (String word : words) {
-            if (!word.isEmpty()) {
-                set.add(word);
+            if (word.length() >= words[0].length() * 2) {
+                if (check(word, set)) {
+                    res.add(word);
+                }
             }
-        }
-        
-        for (String word : words) {
-            if (word.isEmpty()) {
-                continue;
-            }
-            
-            if (check(word, set)) {
-                res.add(word);
-            }
+            set.add(word);
         }
         
         return res;
@@ -46,8 +41,8 @@ public class Solution {
     }
     
     public static void main(String[] args) {
-        // String[] ss = {"cat", "cats", "catsdogcats", "dog", "dogcatsdog", "hippopotamuses", "rat", "ratcatdogcat"};
-        String[] ss = {"cat", "dog", "catdog"};
+        String[] ss = {"cat", "cats", "catsdogcats", "dog", "dogcatsdog", "hippopotamuses", "rat", "ratcatdogcat"};
+        // String[] ss = {"cat", "dog", "catdog"};
         // String[] ss = {"a", "aa", "aaa", "aaaa", "aaaaa", "aaaaaa", "aaaaaaa", "aaaaaaaa", "aaaaaaaaa"};
         System.out.println(new Solution().findAllConcatenatedWordsInADict(ss));
     }
