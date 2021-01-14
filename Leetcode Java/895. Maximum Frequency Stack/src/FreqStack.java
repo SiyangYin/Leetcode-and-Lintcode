@@ -20,7 +20,7 @@ public class FreqStack {
     }
     
     public int pop() {
-        while (!list.isEmpty() && list.get(list.size() - 1).isEmpty()) {
+        if (!list.isEmpty() && list.get(list.size() - 1).isEmpty()) {
             list.remove(list.size() - 1);
         }
         
