@@ -1,5 +1,3 @@
-
-
 public class Solution {
     public void duplicateZeros(int[] arr) {
         int count = 0;
