@@ -11,18 +11,23 @@ public class Solution {
             s = s.substring(1);
         }
         
-        long res = 0;
+        int res = 0;
         for (int i = 0; i < s.length(); i++) {
             if (!Character.isDigit(s.charAt(i))) {
                 break;
             }
             
-            res = res * 10 + s.charAt(i) - '0';
-            if (res > Integer.MAX_VALUE) {
-                return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            int x = sign * (s.charAt(i) - '0');
+            if (sign == 1 && res > (Integer.MAX_VALUE - x) / 10) {
+                return Integer.MAX_VALUE;
             }
+            if (sign == -1 && res < (Integer.MIN_VALUE - x) / 10) {
+                return Integer.MIN_VALUE;
+            }
+            
+            res = res * 10 + x;
         }
         
-        return (int) (sign * res);
+        return res;
     }
 }
