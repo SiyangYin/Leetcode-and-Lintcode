@@ -64,11 +64,4 @@ public class Solution3 {
     private long hash(int l, int r, boolean lToR) {
         return lToR ? hashL[r + 1] - hashL[l] * p[r - l + 1] : hashR[l] - hashR[r + 1] * p[r - l + 1];
     }
-    
-    public static void main(String[] args) {
-        // System.out.println(new Solution3().longestPalindrome("babad"));
-        System.out.println(new Solution3().longestPalindrome("ccc"));
-        // System.out.println(new Solution3().longestPalindrome("tattarrattat"));
-        // System.out.println(new Solution3().longestPalindrome("aba"));
-    }
 }
