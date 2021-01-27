@@ -26,8 +26,7 @@ public class Solution2 {
     
     private int[] buildNext(String p) {
         int[] next = new int[p.length()];
-        int t = next[0] = -1;
-        int j = 0;
+        int t = next[0] = -1, j = 0;
         while (j < p.length() - 1) {
             if (t < 0 || p.charAt(j) == p.charAt(t)) {
                 j++;

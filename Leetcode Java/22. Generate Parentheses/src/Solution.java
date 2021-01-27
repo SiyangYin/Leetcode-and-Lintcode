@@ -5,7 +5,6 @@ public class Solution {
     public List<String> generateParenthesis(int n) {
         List<String> res = new ArrayList<>();
         dfs(n, 0, 0, new StringBuilder(), res);
-        
         return res;
     }
     
