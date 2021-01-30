@@ -6,7 +6,7 @@ public class Solution3 {
         
         long hash = 0, P = 131L, hashP = 0, pow = 1;
         for (int i = 0; i < p.length(); i++) {
-            hashP = hashP * P +  p.charAt(i);
+            hashP = hashP * P + p.charAt(i);
             pow *= P;
         }
         

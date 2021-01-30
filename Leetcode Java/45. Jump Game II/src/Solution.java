@@ -4,13 +4,13 @@ public class Solution {
             return 0;
         }
         
-        int res = 0;
-        int farthest = 0, curEnd = 0;
+        int res = 0, farthest = 0, curEnd = 0;
         
         for (int i = 0; i <= curEnd; i++) {
             if (curEnd >= nums.length - 1) {
                 return res;
             }
+            
             farthest = Math.max(farthest, i + nums[i]);
             if (i == curEnd) {
                 res++;
