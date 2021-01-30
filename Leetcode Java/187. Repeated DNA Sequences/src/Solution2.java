@@ -5,15 +5,14 @@ import java.util.Set;
 
 public class Solution2 {
     public List<String> findRepeatedDnaSequences(String s) {
-        Set<String> res = new HashSet<>();
-        Set<Long> set = new HashSet<>();
-        
-        long p = 131;
         if (s.length() < 10) {
             return new ArrayList<>();
         }
+        
+        Set<String> res = new HashSet<>();
+        Set<Long> set = new HashSet<>();
     
-        long hash = 0, pow = 1;
+        long hash = 0, pow = 1, p = 131;
         for (int i = 0; i < 10; i++) {
             hash = hash * p + s.charAt(i);
             pow *= p;
