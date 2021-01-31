@@ -15,12 +15,8 @@ public class Solution {
         for (Map.Entry<Integer, List<Integer>> entry : map.entrySet()) {
             int key = entry.getKey();
             List<Integer> list = entry.getValue();
-            for (int i = 0; i < list.size(); i++) {
-                if (i % key == 0) {
-                    res.add(new ArrayList<>());
-                }
-             
-                res.get(res.size() - 1).add(list.get(i));
+            for (int i = 0; i < list.size() / key; i++) {
+                res.add(list.subList(i * key, (i + 1) * key));
             }
         }
         

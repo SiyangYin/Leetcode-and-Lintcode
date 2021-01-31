@@ -84,7 +84,6 @@ public class Solution {
     private boolean dfs(int v, int parent, int cnt, int[] ord, int[] low, boolean[] visited, int[][] grid) {
         visited[v] = true;
         low[v] = ord[v] = cnt;
-        cnt++;
         
         int child = 0;
         int[] d = {1, 0, -1, 0, 1};
@@ -94,7 +93,7 @@ public class Solution {
             if (inBound(nextX, nextY, grid) && grid[nextX][nextY] == 1) {
                 int w = transform(nextX, nextY, n);
                 if (!visited[w]) {
-                    if (dfs(w, v, cnt, ord, low, visited, grid)) {
+                    if (dfs(w, v, cnt + 1, ord, low, visited, grid)) {
                         return true;
                     }
                     
