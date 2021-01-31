@@ -4,15 +4,19 @@ public class Solution2 {
         if (n < d) {
             return -1;
         }
-    
-        int[][] dp = new int[2][n];
+        
+        int[][] dp = new int[d + 1][n];
         for (int i = n - 1, curMax = 0; i >= 0; i--) {
             curMax = Math.max(curMax, A[i]);
             dp[1][i] = curMax;
         }
-    
-        for (int i = 2; i <= d; i++) {
         
+        for (int i = 2; i <= d; i++) {
+            for (int j = 0; j <= A.length - i; j++) {
+            
+            }
         }
+        
+        return dp[d][0];
     }
 }
