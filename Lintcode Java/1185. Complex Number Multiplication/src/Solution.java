@@ -17,10 +17,5 @@ public class Solution {
         return (c1Real * c2Real - c1Comp * c2Comp) + "+"
                 + (c1Real * c2Comp + c1Comp * c2Real) + "i";
     }
-    
-    public static void main(String[] args) {
-        System.out.println(Integer.parseInt("-3"));
-        System.out.println(new Solution().complexNumberMultiply("1+1i", "1+1i"));
-    }
 }
 
