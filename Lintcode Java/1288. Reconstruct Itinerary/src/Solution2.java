@@ -1,6 +1,10 @@
 import java.util.*;
 
 public class Solution2 {
+    /**
+     * @param tickets: a list of a list of String
+     * @return: a list of String
+     */
     public List<String> findItinerary(List<List<String>> tickets) {
         // Write your code here
         List<String> res = new ArrayList<>();
@@ -30,14 +34,5 @@ public class Solution2 {
         }
         
         return graph;
-    }
-    
-    public static void main(String[] args) {
-        // List<List<String>> t = new ArrayList<>();
-        // String[][] ss = {{"JFK", "SFO"}, {"JFK", "ATL"}, {"SFO", "ATL"}, {"ATL", "JFK"}, {"ATL", "SFO"}};
-        // for (String[] s : ss) {
-        //     t.add(Arrays.asList(s));
-        // }
-        // System.out.println(new Solution2().findItinerary(t));
     }
 }
