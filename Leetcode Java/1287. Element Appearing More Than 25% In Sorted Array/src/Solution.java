@@ -1,7 +1,7 @@
 public class Solution {
     public int findSpecialInteger(int[] arr) {
         int c = arr.length / 4;
-        for (int i = c; i < arr.length; i++) {
+        for (int i = c; i < arr.length; i += c) {
             if (count(arr, arr[i], i) > c) {
                 return arr[i];
             }
