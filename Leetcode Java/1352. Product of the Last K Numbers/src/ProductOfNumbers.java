@@ -13,7 +13,7 @@ public class ProductOfNumbers {
     public void add(int num) {
         int last = list.get(list.size() - 1);
         if (num == 0) {
-            list = new ArrayList<>();
+            list.clear();
             list.add(1);
         } else {
             list.add(num * last);
