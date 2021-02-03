@@ -7,8 +7,8 @@ public class Solution {
     public int minimumSemesters(int N, int[][] relations) {
         int[] indegrees = new int[N];
         List<Integer>[] graph = buildGraph(relations, N, indegrees);
-        Queue<Integer> queue = new ArrayDeque<>();
         
+        Queue<Integer> queue = new ArrayDeque<>();
         for (int i = 0; i < N; i++) {
             if (indegrees[i] == 0) {
                 queue.offer(i);
@@ -30,8 +30,6 @@ public class Solution {
                         }
                     }
                 }
-                
-                graph[cur] = null;
             }
         }
         
