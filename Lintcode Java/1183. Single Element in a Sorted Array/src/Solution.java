@@ -5,32 +5,22 @@ public class Solution {
      */
     public int singleNonDuplicate(int[] nums) {
         // write your code here
-        int left = 0, right = nums.length - 1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (mid - 1 >= 0 && nums[mid] == nums[mid - 1]) {
-                if (mid % 2 == 0) {
-                    right = mid;
-                } else {
-                    left = mid + 1;
-                }
-            } else if (mid + 1 <= nums.length - 1 && nums[mid] == nums[mid + 1]) {
-                if (mid % 2 == 0) {
-                    left = mid;
-                } else {
-                    right = mid - 1;
-                }
+        int l = 0, r = (nums.length - 2) / 2;
+        while (l < r) {
+            int m = l + (r - l >> 1);
+            if (nums[m * 2] != nums[m * 2 + 1]) {
+                r = m;
             } else {
-                return nums[mid];
+                l = m + 1;
             }
         }
-        return 0;
+        
+        return nums[l * 2] != nums[l * 2 + 1] ? nums[2 * l] : nums[nums.length - 1];
     }
     
     public static void main(String[] args) {
         int[] nums = {1, 1, 2, 3, 3, 4, 4, 8, 8};
-        nums = new int[]{1, 1, 2};
-//        nums = new int[]{3, 3, 7, 7, 10, 11, 11};
+        // nums = new int[]{1, 1, 2};
         System.out.println(new Solution().singleNonDuplicate(nums));
     }
 }
