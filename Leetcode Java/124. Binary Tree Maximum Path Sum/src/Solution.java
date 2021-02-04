@@ -1,8 +1,9 @@
 public class Solution {
     
-    private int res = Integer.MIN_VALUE;
+    private int res;
     
     public int maxPathSum(TreeNode root) {
+        res = Integer.MIN_VALUE;
         dfs(root);
         return res;
     }
