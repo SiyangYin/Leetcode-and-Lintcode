@@ -4,16 +4,11 @@ public class Solution {
             return 0;
         }
         
-        int profit = 0;
-        
+        int res = 0;
         for (int i = 0; i < prices.length - 1; i++) {
-            profit += Math.max(0, prices[i + 1] - prices[i]);
+            res += Math.max(0, prices[i + 1] - prices[i]);
         }
         
-        return profit;
-    }
-    
-    public static void main(String[] args) {
-        System.out.println(new Solution().maxProfit(new int[]{7, 1, 5, 3, 6, 4}));
+        return res;
     }
 }
