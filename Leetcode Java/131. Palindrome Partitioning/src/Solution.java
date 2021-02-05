@@ -32,10 +32,10 @@ public class Solution {
             return;
         }
     
-        for (int i = pos + 1; i <= s.length(); i++) {
-            if (isPal[pos][i - 1]) {
-                cur.add(s.substring(pos, i));
-                dfs(s, i, cur, res, isPal);
+        for (int i = pos; i < s.length(); i++) {
+            if (isPal[pos][i]) {
+                cur.add(s.substring(pos, i + 1));
+                dfs(s, i + 1, cur, res, isPal);
                 cur.remove(cur.size() - 1);
             }
         }
