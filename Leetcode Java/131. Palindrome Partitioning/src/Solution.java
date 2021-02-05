@@ -4,14 +4,10 @@ import java.util.List;
 public class Solution {
     public List<List<String>> partition(String s) {
         List<List<String>> res = new ArrayList<>();
-        
-        if (s == null || s.isEmpty()) {
-            return res;
-        }
-        
-        boolean[][] isPal = new boolean[s.length()][s.length()];
-        for (int len = 1; len <= s.length(); len++) {
-            for (int i = 0; i <= s.length() - len; i++) {
+        int n = s.length();
+        boolean[][] isPal = new boolean[n][n];
+        for (int len = 1; len <= n; len++) {
+            for (int i = 0; i + len - 1 < n; i++) {
                 int j = i + len - 1;
                 if (len == 1) {
                     isPal[i][j] = true;
@@ -31,7 +27,7 @@ public class Solution {
             res.add(new ArrayList<>(cur));
             return;
         }
-    
+        
         for (int i = pos; i < s.length(); i++) {
             if (isPal[pos][i]) {
                 cur.add(s.substring(pos, i + 1));
