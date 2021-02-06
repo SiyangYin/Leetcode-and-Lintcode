@@ -8,7 +8,7 @@ public class Solution2 {
         int[] stack = new int[A.length + 1];
         int res = A.length + 1, top = 0;
         for (int i = 0; i < preSum.length; i++) {
-            while (top > 0 && preSum[stack[top - 1]] > preSum[i]) {
+            while (top > 0 && preSum[stack[top - 1]] >= preSum[i]) {
                 top--;
             }
             
@@ -26,19 +26,11 @@ public class Solution2 {
                 if (preSum[i] - preSum[stack[l]] >= K) {
                     res = Math.min(res, i - stack[l]);
                 }
-            } else {
-                if (preSum[i] >= K) {
-                    res = Math.min(res, i);
-                }
             }
             
             stack[top++] = i;
         }
         
         return res == A.length + 1 ? -1 : res;
-    }
-    
-    public static void main(String[] args) {
-        System.out.println(new Solution2().shortestSubarray(new int[]{-11, -15, 76, 41, -41, 68, 41, 12, 73, -8}, 50));
     }
 }
