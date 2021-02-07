@@ -12,6 +12,9 @@ public class Solution {
         
         int res = A.length + 1;
         for (int i = 0; i <= A.length; i++) {
+            // 枚举preSum[i]为右端点的情况。如果队头满足条件，那么更新答案，
+            // 并且由于在本轮循环结束之后，队头不可能再作为最优解的左端点存在了，
+            // 因为未来的更优子区间的长度应该更短，所以可以直接出队
             while (!deque.isEmpty() && preSum[i] - preSum[deque.peek()] >= K) {
                 res = Math.min(res, i - deque.peek());
                 deque.poll();
@@ -37,6 +40,5 @@ public class Solution {
         deque.offer(1);
         deque.poll();
         System.out.println(deque);
-        
     }
 }
