@@ -12,10 +12,10 @@ public class Solution {
         }
         
         int[] res = null;
-        while (!maxHeap.isEmpty()) {
+        while (true) {
             int[] top = maxHeap.poll();
             int l = top[0], r = max;
-            if (res == null || res[1] - res[0] > r - l || (res[1] - res[0] == r - l && l < res[0])) {
+            if (res == null || res[1] - res[0] > r - l) {
                 res = new int[]{l, r};
             }
             
