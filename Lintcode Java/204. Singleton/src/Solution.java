@@ -1,4 +1,10 @@
 class Solution {
+    
+    private static final Solution instance = new Solution();
+    
+    private Solution() {
+    }
+    
     /**
      * @return: The same instance of this class every time
      */
@@ -6,12 +12,4 @@ class Solution {
         // write your code here
         return instance;
     }
-    
-    private Solution() {
-    
-    }
-    
-    private static Solution instance = new Solution();
-    
-};
-
+}
