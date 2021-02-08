@@ -14,10 +14,10 @@ public class Solution {
             if ("start".equals(op)) {
                 if (!stack.isEmpty()) {
                     res[stack.peek()] += time - last;
-                    last = time;
                 }
                 
                 stack.push(id);
+                last = time;
             } else {
                 res[stack.pop()] += time - last + 1;
                 last = time + 1;
