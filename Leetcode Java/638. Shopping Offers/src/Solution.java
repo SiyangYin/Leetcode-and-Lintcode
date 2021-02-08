@@ -18,24 +18,24 @@ public class Solution {
         return dfs(special.size(), target, special, price, dp);
     }
     
-    private int dfs(int pos, int state, List<List<Integer>> special, List<Integer> price, int[][] dp) {
-        if (dp[pos][state] != -1) {
-            return dp[pos][state];
+    private int dfs(int count, int state, List<List<Integer>> special, List<Integer> price, int[][] dp) {
+        if (dp[count][state] != -1) {
+            return dp[count][state];
         }
         
         int n = price.size();
-        if (pos == 0) {
-            dp[pos][state] = 0;
+        if (count == 0) {
+            dp[count][state] = 0;
             for (int i = 0; i < n; i++) {
                 int c = state >> i * 3 & 7;
-                dp[pos][state] += c * price.get(i);
+                dp[count][state] += c * price.get(i);
             }
             
-            return dp[pos][state];
+            return dp[count][state];
         }
         
-        dp[pos][state] = dfs(pos - 1, state, special, price, dp);
-        List<Integer> sp = special.get(pos - 1);
+        dp[count][state] = dfs(count - 1, state, special, price, dp);
+        List<Integer> sp = special.get(count - 1);
         int nextState = 0;
         for (int i = n - 1; i >= 0; i--) {
             int c = state >> i * 3 & 7;
@@ -48,10 +48,10 @@ public class Solution {
         }
         
         if (nextState != -1) {
-            dp[pos][state] = Math.min(dp[pos][state], sp.get(n) + dfs(pos, nextState, special, price, dp));
+            dp[count][state] = Math.min(dp[count][state], sp.get(n) + dfs(count, nextState, special, price, dp));
         }
         
-        return dp[pos][state];
+        return dp[count][state];
     }
     
     public static void main(String[] args) {
