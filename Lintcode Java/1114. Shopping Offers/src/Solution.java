@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Solution {
     /**
@@ -10,19 +12,28 @@ public class Solution {
      */
     public int shoppingOffers(List<Integer> price, List<List<Integer>> special, List<Integer> needs) {
         // write your code here
-        int result = 0;
-        for (int i = 0; i < price.size(); i++) {
-            result += price.get(i) * needs.get(i);
+        return dfs(price, special, needs, new HashMap<>());
+    }
+    
+    private int dfs(List<Integer> price, List<List<Integer>> special, List<Integer> needs, Map<List<Integer>, Integer> map) {
+        if (map.containsKey(needs)) {
+            return map.get(needs);
         }
-        
+    
+        int res = 0;
+        for (int i = 0; i < price.size(); i++) {
+            res += price.get(i) * needs.get(i);
+        }
+    
         for (int i = 0; i < special.size(); i++) {
             List<Integer> newNeeds = canUseSpecial(special.get(i), needs);
             if (newNeeds != null) {
-                result =  Math.min(result, special.get(i).get(needs.size()) + shoppingOffers(price, special, newNeeds));
+                res =  Math.min(res, special.get(i).get(needs.size()) + shoppingOffers(price, special, newNeeds));
             }
         }
-        
-        return result;
+    
+        map.put(needs, res);
+        return res;
     }
     
     private List<Integer> canUseSpecial(List<Integer> specialOffer, List<Integer> needs) {
