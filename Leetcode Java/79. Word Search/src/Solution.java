@@ -28,20 +28,24 @@ public class Solution {
         board[x][y] = '.';
     
         for (int i = 0; i < 4; i++) {
-            int a = x + direction[i][0], b = y + direction[i][1];
-            if (a >= 0 && a < board.length && b >= 0 && b < board[0].length) {
-                if (dfs(board, a, b, word, pos + 1, direction)) {
+            int nextX = x + direction[i][0], nextY = y + direction[i][1];
+            if (0 <= nextX && nextX < board.length && 0 <= nextY && nextY < board[0].length && board[nextX][nextY] != '.') {
+                if (dfs(board, nextX, nextY, word, pos + 1, direction)) {
                     return true;
                 }
             }
         }
-        board[x][y] = word.charAt(pos);
         
+        board[x][y] = word.charAt(pos);
         return false;
     }
     
     public static void main(String[] args) {
-        char[][] board = {{'A', 'B', 'C', 'D'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'}};
-        System.out.println(new Solution().exist(board, "ABCCED"));
+        char[][] board = {
+                {'A', 'B', 'C', 'D'},
+                {'S', 'F', 'C', 'S'},
+                {'A', 'D', 'E', 'E'}};
+        // char[][] board = {{'A'}};
+        System.out.println(new Solution().exist(board, "ABFSA"));
     }
 }

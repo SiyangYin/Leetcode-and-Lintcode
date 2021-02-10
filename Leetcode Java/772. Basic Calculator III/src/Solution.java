@@ -16,7 +16,6 @@ public class Solution {
         Deque<Long> stack = new ArrayDeque<>();
         
         for (int i = 0; i < s.length(); i++) {
-            System.out.println(ops);
             char ch = s.charAt(i);
             if (ch == '(') {
                 ops.push('(');

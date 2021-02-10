@@ -6,9 +6,10 @@ public class Solution {
         Deque<String> stack = new ArrayDeque<>();
         String[] dirs = path.split("/");
         for (String s : dirs) {
-            if (s.length() == 0) {
+            if (s.isEmpty()) {
                 continue;
             }
+            
             if (!".".equals(s) && !"..".equals(s)) {
                 stack.push(s);
             } else if ("..".equals(s) && !stack.isEmpty()) {
