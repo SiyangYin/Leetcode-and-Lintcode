@@ -35,6 +35,7 @@ public class Solution {
                         
                     }
                 }
+                
                 chs[i] = c;
             }
         }

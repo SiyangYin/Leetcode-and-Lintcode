@@ -42,10 +42,8 @@ public class Solution {
                 dfs(i, j, new StringBuilder(), root, board, set);
             }
         }
-        
-        List<String> res = new ArrayList<>();
-        res.addAll(set);
-        return res;
+    
+        return new ArrayList<>(set);
     }
     
     private void dfs(int x, int y, StringBuilder sb, Node cur, char[][] board, Set<String> set) {
