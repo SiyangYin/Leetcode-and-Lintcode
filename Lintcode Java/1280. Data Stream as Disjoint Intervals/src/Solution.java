@@ -20,20 +20,23 @@ public class Solution {
         Interval interval = new Interval(val, val);
         Interval floor = set.floor(interval), ceiling = set.ceiling(interval);
         if (floor.end < val - 1 && ceiling.start > val + 1) {
-            set.add(interval);
+            set.add(new Interval(val, val));
             return;
         }
         
-        if (ceiling.start == val + 1) {
-            ceiling.start = val;
-        }
-        if (floor.end == val - 1) {
+        set.remove(floor);
+        set.remove(ceiling);
+        if (floor.end == val - 1 && ceiling.start == val + 1) {
+            floor.end = ceiling.end;
+            set.add(floor);
+        } else if (floor.end == val - 1) {
             floor.end = val;
-        }
-    
-        if (floor.end == ceiling.start) {
-            set.remove(floor);
-            ceiling.start = floor.start;
+            set.add(floor);
+            set.add(ceiling);
+        } else if (ceiling.start == val + 1) {
+            ceiling.start = val;
+            set.add(ceiling);
+            set.add(floor);
         }
     }
     
@@ -48,14 +51,19 @@ public class Solution {
     public static void main(String[] args) {
         Solution sol = new Solution();
         sol.addNum(1);
-        sol.addNum(3);
-        sol.addNum(7);
-    
         System.out.println(sol.getIntervals());
-        sol.addNum(2);
-        System.out.println(sol.getIntervals());
-        sol.addNum(6);
-        System.out.println(sol.getIntervals());
+        // sol.addNum(4);
+        // sol.addNum(3);
+        // sol.addNum(2);
+        //
+        // System.out.println(sol.getIntervals());
+        // System.out.println(sol.getIntervals());
+        //
+        // sol.addNum(0);
+        // System.out.println(sol.getIntervals());
+        //
+        // sol.addNum(3);
+        // System.out.println(sol.getIntervals());
     }
 }
 

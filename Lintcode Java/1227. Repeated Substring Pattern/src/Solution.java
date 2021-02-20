@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Solution {
     /**
      * @param s: a string
@@ -7,10 +5,9 @@ public class Solution {
      */
     public boolean repeatedSubstringPattern(String s) {
         // write your code here
+        int n = s.length();
         int[] next = buildNext(s + '#');
-        System.out.println(Arrays.toString(next));
-        int len = s.length() - next[s.length()];
-        return len != s.length() && s.length() % len == 0;
+        return next[n] > 0 && n % (n - next[n]) == 0;
     }
     
     private int[] buildNext(String s) {
@@ -25,9 +22,5 @@ public class Solution {
         }
         
         return next;
-    }
-    
-    public static void main(String[] args) {
-        System.out.println(new Solution().repeatedSubstringPattern("abab"));
     }
 }
