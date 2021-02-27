@@ -20,12 +20,12 @@ public class Solution {
         
         int[] res = new int[A.length];
         for (int i = 0, idx = 0, r = k; i < A.length; i++) {
-            while (deque.peekFirst() < i - k) {
+            if (deque.peekFirst() < i - k) {
                 deque.pollFirst();
             }
             
             if (r < A.length) {
-                while (!deque.isEmpty() && A[deque.peekLast()] > A[r]) {
+                while (!deque.isEmpty() && A[deque.peekLast()] >= A[r]) {
                     deque.pollLast();
                 }
                 deque.offerLast(r);

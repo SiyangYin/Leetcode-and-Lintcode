@@ -1,42 +1,25 @@
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Solution {
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
-        int index = findClosest(arr, x);
-        List<Integer> result = new LinkedList<>();
-        result.add(arr[index]);
+        List<Integer> res = new ArrayList<>();
         
-        int left = index, right = index;
-        while (result.size() < k) {
-            if (left - 1 >= 0 && right + 1 <= arr.length - 1) {
-                if (Math.abs(arr[left - 1] - x) <= Math.abs(arr[right + 1] - x)) {
-                    result.add(0, arr[--left]);
-                } else {
-                    result.add(arr[++right]);
-                }
-            } else if (left - 1 >= 0) {
-                result.add(0, arr[--left]);
+        int l = 0, r = arr.length - k;
+        while (l < r) {
+            int m = l + ((r - l) >> 1);
+            if (Math.abs(arr[m] - x) <= Math.abs(arr[m + k] - x)) {
+                r = m;
             } else {
-                result.add(arr[++right]);
+                l = m + 1;
             }
         }
         
-        return result;
-    }
-    
-    private int findClosest(int[] arr, int x) {
-        int left = 0, right = arr.length - 1;
-        while (left + 1 < right) {
-            int mid = left + (right - left) / 2;
-            if (arr[mid] < x) {
-                left = mid;
-            } else {
-                right = mid;
-            }
+        for (int i = l; i < l + k; i++) {
+            res.add(arr[i]);
         }
         
-        return Math.abs(arr[left] - x) <= Math.abs(arr[right] - x) ? left : right;
+        return res;
     }
     
     public static void main(String[] args) {
