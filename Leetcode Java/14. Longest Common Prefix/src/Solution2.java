@@ -37,11 +37,7 @@ public class Solution2 {
         }
         
         String res = shortest.substring(0, l + 1);
-        if (checkPrefix(strs, res)) {
-            return res;
-        } else {
-            return "";
-        }
+        return checkPrefix(strs, res) ? res : "";
     }
     
     private boolean checkPrefix(String[] strs, String prefix) {
@@ -52,5 +48,4 @@ public class Solution2 {
         }
         return true;
     }
-    
 }
