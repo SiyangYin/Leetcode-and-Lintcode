@@ -1,14 +1,12 @@
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
 
 public class Solution {
     public int minCost(int[][] grid) {
         int m = grid.length, n = grid[0].length;
         int[] d = {1, 0, -1, 0, 1};
-        Map<Integer, Integer> mapToD = Map.of(
-                0, 3,
-                1, 2,
-                2, 4,
-                3, 1);
+        int[] mapToD = {3, 2, 4, 1};
         
         Deque<Integer> deque = new ArrayDeque<>();
         int[][] dist = new int[m][n];
@@ -16,7 +14,6 @@ public class Solution {
             Arrays.fill(row, Integer.MAX_VALUE);
         }
         boolean[][] visited = new boolean[m][n];
-        int end = m * n - 1;
         
         deque.offerLast(0);
         dist[0][0] = 0;
@@ -38,7 +35,7 @@ public class Solution {
                     continue;
                 }
                 
-                int e = grid[x][y] == mapToD.get(i) ? 0 : 1;
+                int e = grid[x][y] == mapToD[i] ? 0 : 1;
                 if (!visited[nextX][nextY] && dist[nextX][nextY] > dist[x][y] + e) {
                     dist[nextX][nextY] = dist[x][y] + e;
                     if (e == 0) {
