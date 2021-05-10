@@ -4,6 +4,7 @@ import java.util.Map;
 public class Solution {
     
     private int[] parent;
+    
     private int find(int x) {
         if (parent[x] != x) {
             parent[x] = find(parent[x]);
@@ -33,11 +34,19 @@ public class Solution {
         }
         
         for (int x : A) {
-            for (int i = 2; i <= x / i; i++) {
-                if (x % i == 0) {
+            int y = x;
+            for (int i = 2; i <= y / i; i++) {
+                if (y % i == 0) {
+                    while (y % i == 0) {
+                        y /= i;
+                    }
+                    
                     union(x, i);
-                    union(x, x / i);
                 }
+            }
+            
+            if (y > 1) {
+                union(x, y);
             }
         }
         
@@ -46,14 +55,16 @@ public class Solution {
         for (int x : A) {
             int px = find(x);
             map.put(px, map.getOrDefault(px, 0) + 1);
-            
-            res = Math.max(res, map.get(px));
+        }
+    
+        for (int cnt : map.values()) {
+            res = Math.max(res, cnt);
         }
         
         return res;
     }
     
     public static void main(String[] args) {
-        System.out.println(new Solution().largestComponentSize(new int[]{4, 6}));
+        System.out.println(new Solution().largestComponentSize(new int[]{4, 6, 9}));
     }
 }
