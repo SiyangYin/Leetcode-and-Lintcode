@@ -6,10 +6,10 @@ public class Solution {
         int depth = 0;
         for (int i = 0; i < seq.length(); i++) {
             if (seq.charAt(i) == '(') {
+                res[i] = depth % 2;
                 depth++;
-                res[i] = depth % 2;
             } else {
-                res[i] = depth % 2;
+                res[i] = (depth - 1) % 2;
                 depth--;
             }
         }
