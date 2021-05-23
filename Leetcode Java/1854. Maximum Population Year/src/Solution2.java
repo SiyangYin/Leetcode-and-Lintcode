@@ -2,7 +2,7 @@ public class Solution2 {
     final int BASE = 1950;
     
     public int maximumPopulation(int[][] logs) {
-        int[] diff = new int[102];
+        int[] diff = new int[101];
         for (int[] log : logs) {
             diff[log[0] - BASE]++;
             diff[log[1] - BASE]--;
