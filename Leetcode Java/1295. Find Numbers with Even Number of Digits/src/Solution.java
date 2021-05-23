@@ -8,7 +8,7 @@ public class Solution {
                 x /= 10;
             }
             
-            res += cnt % 2 == 0 ? 1 : 0;
+            res += 1 - cnt % 2;
         }
         
         return res;
