@@ -3,8 +3,8 @@ import java.util.Deque;
 
 public class Solution {
     public int maxSubarraySumCircular(int[] A) {
-        int[] preSum = new int[A.length * 2 + 1];
-        for (int i = 0; i < A.length * 2; i++) {
+        int[] preSum = new int[A.length * 2];
+        for (int i = 0; i < A.length * 2 - 1; i++) {
             preSum[i + 1] = preSum[i] + A[i % A.length];
         }
         
