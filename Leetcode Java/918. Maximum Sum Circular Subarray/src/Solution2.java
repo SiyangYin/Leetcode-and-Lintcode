@@ -9,7 +9,7 @@ public class Solution2 {
             total += x;
         }
         
-        return maxSum > 0 ? Math.max(maxSum, total - minSum) : maxSum;
+        return maxSum >= 0 ? Math.max(maxSum, total - minSum) : maxSum;
     }
     
     public static void main(String[] args) {
