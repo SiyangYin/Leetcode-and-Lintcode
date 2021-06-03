@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.PriorityQueue;
 
 public class Solution {
     
@@ -32,18 +31,18 @@ public class Solution {
     }
     
     public int minCostConnectPoints(int[][] points) {
-        List<int[]> list = new ArrayList<>();
+        PriorityQueue<int[]> minHeap = new PriorityQueue<>((p1, p2) -> Integer.compare(p1[2], p2[2]));
         for (int i = 0; i < points.length; i++) {
             for (int j = i + 1; j < points.length; j++) {
                 int[] x = points[i], y = points[j];
-                list.add(new int[]{i, j, Math.abs(x[0] - y[0]) + Math.abs(x[1] - y[1])});
+                minHeap.offer(new int[]{i, j, Math.abs(x[0] - y[0]) + Math.abs(x[1] - y[1])});
             }
         }
         
-        list.sort((p1, p2) -> Integer.compare(p1[2], p2[2]));
         UnionFind uf = new UnionFind(points.length);
         int res = 0;
-        for (int[] p : list) {
+        while (!minHeap.isEmpty()) {
+            int[] p = minHeap.poll();
             int x = p[0], y = p[1];
             if (uf.union(x, y)) {
                 res += p[2];
