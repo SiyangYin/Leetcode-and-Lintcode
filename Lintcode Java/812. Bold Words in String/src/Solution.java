@@ -9,11 +9,9 @@ public class Solution {
         int[] diff = new int[S.length() + 1];
         for (String p : words) {
             int[] ne = getNext(p);
-            int pos = 0;
-            while ((pos = index(S, p, pos, ne)) != -1) {
+            for (int pos = 0;(pos = index(S, p, pos, ne)) != -1; pos++) {
                 diff[pos]++;
                 diff[pos + p.length()]--;
-                pos++;
             }
         }
         
