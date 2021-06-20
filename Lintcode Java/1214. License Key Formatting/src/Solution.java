@@ -13,8 +13,8 @@ public class Solution {
                 sb.append(Character.toUpperCase(ch));
                 j++;
             }
-    
-            if (j == K ) {
+            
+            if (j == K) {
                 sb.append('-');
                 j = 0;
             }
