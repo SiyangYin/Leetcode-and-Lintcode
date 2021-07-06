@@ -8,8 +8,7 @@ public class Solution {
         // write your code here
         int[] count = new int[26];
         int max = 0;
-        for (int i = 0; i < tasks.length; i++) {
-            char task = tasks[i];
+        for (char task : tasks) {
             count[task - 'A']++;
             max = Math.max(max, count[task - 'A']);
         }
@@ -22,5 +21,10 @@ public class Solution {
         }
         
         return Math.max(res, tasks.length);
+    }
+    
+    public static void main(String[] args) {
+        char[] chs = "AAABBBCCCDDD".toCharArray();
+        System.out.println(new Solution().leastInterval(chs, 2));
     }
 }
