@@ -1,14 +1,28 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
 
 class MaxStack {
     
-    private Deque<Integer> stack, maxStack;
+    class Node {
+        int val;
+        Node prev, next;
+    
+        public Node(int val) {
+            this.val = val;
+        }
+    }
+    
+    private Node head, tail;
+    private TreeMap<Integer, List<Node>> treeMap;
     
     public MaxStack() {
         // do intialization if necessary
-        stack = new ArrayDeque<>();
-        maxStack = new ArrayDeque<>();
+        head = new Node(-1);
+        tail = new Node(-1);
+        head.next = tail;
+        tail.prev = head;
+        treeMap = new TreeMap<>();
     }
     
     /*
@@ -17,20 +31,28 @@ class MaxStack {
      */
     public void push(int x) {
         // write your code here
-        stack.push(x);
-        if (maxStack.isEmpty() || x >= maxStack.peek()) {
-            maxStack.push(x);
-        }
+        Node node = tail.prev;
+        node.next = new Node(x);
+        node.next.prev = node;
+        node.next.next = tail;
+        tail.prev = node.next;
+        
+        treeMap.putIfAbsent(x, new ArrayList<>());
+        treeMap.get(x).add(tail.prev);
     }
     
     public int pop() {
         // write your code here
-        int x = stack.pop();
-        if (x == maxStack.peek()) {
-            maxStack.pop();
+        tail = tail.prev;
+        tail.next = null;
+        int val = tail.val;
+    
+        List<Node> list = treeMap.get(val);
+        list.remove(list.size() - 1);
+        if (list.isEmpty()) {
+            treeMap.remove(val);
         }
-        
-        return x;
+        return val;
     }
     
     /*
@@ -38,7 +60,7 @@ class MaxStack {
      */
     public int top() {
         // write your code here
-        return stack.peek();
+        return tail.prev.val;
     }
     
     /*
@@ -46,7 +68,7 @@ class MaxStack {
      */
     public int peekMax() {
         // write your code here
-        return maxStack.peek();
+        return treeMap.lastKey();
     }
     
     /*
@@ -54,21 +76,24 @@ class MaxStack {
      */
     public int popMax() {
         // write your code here
-        int x = maxStack.pop();
-        while (!stack.isEmpty() && stack.peek() != x) {
-            stack.pop();
+        int x = treeMap.lastKey();
+        List<Node> list = treeMap.get(x);
+        Node node = list.remove(list.size() - 1);
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+        if (list.isEmpty()) {
+            treeMap.remove(x);
         }
         
-        stack.pop();
         return x;
     }
     
     public static void main(String[] args) {
         MaxStack stack = new MaxStack();
-        stack.push(5);
-        stack.push(1);
-        stack.push(5);
-    
+        stack.push(430);
+        System.out.println(stack.popMax());
+        stack.push(234);
         System.out.println(stack.top());
+        System.out.println(stack.popMax());
     }
 }
