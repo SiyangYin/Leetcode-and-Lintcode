@@ -18,15 +18,8 @@ public class Solution {
         }
         
         Deque<TreeNode> stkLeft = new LinkedList<>(), stkRight = new LinkedList<>();
-        fillStk(root, stkLeft, target);
-        stkRight.addAll(stkLeft);
+        fillStk(root, stkLeft, stkRight, target);
         
-        if (target < stkLeft.peek().val) {
-            moveLeft(stkLeft);
-        } else {
-            moveRight(stkRight);
-        }
-    
         for (int i = 0; i < k; i++) {
             if (stkLeft.isEmpty()) {
                 res.add(stkRight.peek().val);
@@ -50,44 +43,31 @@ public class Solution {
     }
     
     private void moveRight(Deque<TreeNode> stk) {
-        TreeNode cur = stk.peek();
-        if (cur.right == null) {
-            stk.pop();
-            while (!stk.isEmpty() && stk.peek().right == cur) {
-                cur = stk.pop();
-            }
-        } else {
-            cur = cur.right;
-            while (cur != null) {
-                stk.push(cur);
-                cur = cur.left;
-            }
+        TreeNode cur = stk.pop();
+        cur = cur.right;
+        while (cur != null) {
+            stk.push(cur);
+            cur = cur.left;
         }
     }
     
     private void moveLeft(Deque<TreeNode> stk) {
-        TreeNode cur = stk.peek();
-        if (cur.left == null) {
-            stk.pop();
-            while (!stk.isEmpty() && stk.peek().left == cur) {
-                cur = stk.pop();
-            }
-        } else {
-            cur = cur.left;
-            while (cur != null) {
-                stk.push(cur);
-                cur = cur.right;
-            }
+        TreeNode cur = stk.pop();
+        cur = cur.left;
+        while (cur != null) {
+            stk.push(cur);
+            cur = cur.right;
         }
     }
     
-    private void fillStk(TreeNode cur, Deque<TreeNode> stk, double target) {
-        while (cur != null) {
-            stk.push(cur);
-            if (target < cur.val) {
-                cur = cur.left;
+    private void fillStk(TreeNode root, Deque<TreeNode> stkLeft, Deque<TreeNode> stkRight, double target) {
+        while (root != null) {
+            if (target < root.val) {
+                stkRight.push(root);
+                root = root.left;
             } else {
-                cur = cur.right;
+                stkLeft.push(root);
+                root = root.right;
             }
         }
     }
@@ -97,7 +77,7 @@ public class Solution {
         root.left = new TreeNode(1);
         root.left.right = new TreeNode(2);
         root.right = new TreeNode(4);
-    
+        
         System.out.println(new Solution().closestKValues(root, 0.5, 2));
     }
 }
