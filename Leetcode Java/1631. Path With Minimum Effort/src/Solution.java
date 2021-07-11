@@ -5,7 +5,7 @@ public class Solution {
     
     class UnionFind {
         int[] parent;
-        int size, m, n;
+        int size;
         
         public UnionFind(int size) {
             parent = new int[size];
@@ -70,10 +70,9 @@ public class Solution {
         
         UnionFind uf = new UnionFind(m * n);
         int start = 0, end = m * n - 1;
-        for (int i = 0; i < list.size(); i++) {
-            Edge edge = list.get(i);
+        for (Edge edge : list) {
             uf.union(edge.x, edge.y);
-            
+        
             if (uf.find(start) == uf.find(end)) {
                 return edge.len;
             }
