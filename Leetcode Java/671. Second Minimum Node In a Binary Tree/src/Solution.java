@@ -1,6 +1,10 @@
 public class Solution {
     public int findSecondMinimumValue(TreeNode root) {
-        long[] A = {Long.MAX_VALUE, Long.MAX_VALUE};
+        if (root == null) {
+            return -1;
+        }
+        
+        long[] A = {root.val, Long.MAX_VALUE};
         dfs(root, A);
         return A[1] == Long.MAX_VALUE ? -1 : (int) A[1];
     }
@@ -10,15 +14,15 @@ public class Solution {
             return;
         }
         
-        if (cur.val < A[0]) {
-            A[1] = A[0];
-            A[0] = cur.val;
-        } else if (cur.val > A[0] && cur.val < A[1]) {
-            A[1] = cur.val;
+        if (cur.val > A[0]) {
+            A[1] = Math.min(cur.val, A[1]);
+            return;
         }
         
-        dfs(cur.left, A);
-        dfs(cur.right, A);
+        if (cur.val == A[0]) {
+            dfs(cur.left, A);
+            dfs(cur.right, A);
+        }
     }
 }
 
