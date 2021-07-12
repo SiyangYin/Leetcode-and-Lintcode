@@ -47,29 +47,21 @@ public class Solution {
         res.add(new ArrayList<>());
         res.add(new ArrayList<>());
         
-        boolean[] available = new boolean[edges.length];
-        Arrays.fill(available, true);
         Arrays.sort(edges, (e1, e2) -> Integer.compare(e1[2], e2[2]));
-        int minCost = MST(edges, available, -1, n);
+        int minCost = MST(edges, -1, -1, n);
         for (int i = 0; i < edges.length; i++) {
-            available[i] = false;
-            int cost = MST(edges, available, -1, n), idx = edges[i][3];
+            int cost = MST(edges, i, -1, n), idx = edges[i][3];
             if (cost > minCost) {
                 res.get(0).add(idx);
-                available[i] = true;
-            } else {
-                available[i] = true;
-                cost = MST(edges, available, i, n);
-                if (cost == minCost) {
-                    res.get(1).add(idx);
-                }
+            } else if (MST(edges, -1, i, n) == minCost) {
+                res.get(1).add(idx);
             }
         }
         
         return res;
     }
     
-    private int MST(int[][] edges, boolean[] available, int required, int n) {
+    private int MST(int[][] edges, int deleted, int required, int n) {
         UnionFind uf = new UnionFind(n);
         int res = 0;
         if (required != -1) {
@@ -79,7 +71,7 @@ public class Solution {
         }
         
         for (int i = 0; i < edges.length; i++) {
-            if (i == required || !available[i]) {
+            if (i == required || i == deleted) {
                 continue;
             }
             
