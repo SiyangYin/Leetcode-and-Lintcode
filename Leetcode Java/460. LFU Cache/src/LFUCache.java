@@ -60,6 +60,7 @@ public class LFUCache {
     public LFUCache(int capacity) {
         nodeMap = new HashMap<>();
         freq = new HashMap<>();
+        freq.put(1, new LinkedList());
         this.capacity = capacity;
     }
     
@@ -74,9 +75,9 @@ public class LFUCache {
     }
     
     public void put(int key, int value) {
-        if (capacity == 0) {
-            return;
-        }
+        // if (capacity == 0) {
+        //     return;
+        // }
         
         if (nodeMap.containsKey(key)) {
             Node node = nodeMap.get(key);
@@ -91,7 +92,6 @@ public class LFUCache {
         
         Node node = new Node(key, value);
         nodeMap.put(key, node);
-        freq.putIfAbsent(1, new LinkedList());
         freq.get(1).addFirst(node);
         minFreq = 1;
     }
@@ -111,22 +111,22 @@ public class LFUCache {
         LinkedList list = freq.get(minFreq);
         Node node = list.removeLast();
         nodeMap.remove(node.key);
-        if (list.size == 0) {
-            minFreq++;
-        }
     }
     
     public static void main(String[] args) {
-        LFUCache cache = new LFUCache(2);
-        cache.put(1, 1);
-        cache.put(2, 2);
-        System.out.println("cache.get(1) = " + cache.get(1));
-        cache.put(3, 3);
-        System.out.println("cache.get(2) = " + cache.get(2));
-        System.out.println("cache.get(3) = " + cache.get(3));
-        cache.put(4, 4);
-        System.out.println("cache.get(1) = " + cache.get(1));
-        System.out.println("cache.get(3) = " + cache.get(3));
-        System.out.println("cache.get(4) = " + cache.get(4));
+        // LFUCache cache = new LFUCache(2);
+        // cache.put(1, 1);
+        // cache.put(2, 2);
+        // System.out.println("cache.get(1) = " + cache.get(1));
+        // cache.put(3, 3);
+        // System.out.println("cache.get(2) = " + cache.get(2));
+        // System.out.println("cache.get(3) = " + cache.get(3));
+        // cache.put(4, 4);
+        // System.out.println("cache.get(1) = " + cache.get(1));
+        // System.out.println("cache.get(3) = " + cache.get(3));
+        // System.out.println("cache.get(4) = " + cache.get(4));
+        LFUCache cache = new LFUCache(0);
+        cache.put(0,0);
+        System.out.println("cache.get(0) = " + cache.get(0));
     }
 }
