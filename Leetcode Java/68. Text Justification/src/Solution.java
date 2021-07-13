@@ -21,14 +21,13 @@ public class Solution {
             } else {
                 int cnt = j - i - 1, r = maxWidth - len + cnt;
                 sb.append(words[i]);
-                int k = 0;
-                while (k < r % cnt) {
-                    sb.append(" ".repeat(Math.max(0, r / cnt + 1))).append(words[i + k + 1]);
-                    k++;
-                }
-                while (k < cnt) {
-                    sb.append(" ".repeat(Math.max(0, r / cnt))).append(words[i + k + 1]);
-                    k++;
+                for (int k = 0; k < cnt; k++) {
+                    sb.append(" ".repeat(r / cnt));
+                    if (k < r % cnt) {
+                        sb.append(' ');
+                    }
+                    
+                    sb.append(words[i + k + 1]);
                 }
             }
             
