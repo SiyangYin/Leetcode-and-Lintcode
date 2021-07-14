@@ -8,12 +8,8 @@ public class Solution {
                 char ch1 = s.charAt(l), ch2 = s.charAt(r);
                 if (len == 2) {
                     f[l][r] = ch1 == ch2 ? 0 : 1;
-                } else  {
-                    if (ch1 == ch2) {
-                        f[l][r] = f[l + 1][r - 1];
-                    } else {
-                        f[l][r] = Math.min(f[l + 1][r], f[l][r - 1]) + 1;
-                    }
+                } else {
+                    f[l][r] = ch1 == ch2 ? f[l + 1][r - 1] : Math.min(f[l + 1][r], f[l][r - 1]) + 1;
                 }
             }
         }
