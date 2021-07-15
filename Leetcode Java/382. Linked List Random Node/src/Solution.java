@@ -21,7 +21,7 @@ public class Solution {
         int res = -1, n = 0;
         for (ListNode cur = head; cur != null; cur = cur.next) {
             n++;
-            if (random.nextInt() % n == 0) {
+            if (random.nextInt(n) == 0) {
                 res = cur.val;
             }
         }
