@@ -62,7 +62,7 @@ public class Solution {
                 int j = i - len + 1;
                 if (j >= 0) {
                     for (int k = 0; k < 4; k++) {
-                        while (!q[k].empty() && q[k].front() < j) {
+                        if (!q[k].empty() && q[k].front() < j) {
                             q[k].pop();
                         }
                         
@@ -78,7 +78,7 @@ public class Solution {
             }
         }
         
-        return (f[0][n - 1] + MOD - 1) % MOD;
+        return (f[0][n - 1] - 1) % MOD;
     }
     
     public static void main(String[] args) {
