@@ -28,12 +28,6 @@ public class Solution {
     
     private boolean dfs(int[] nums, int curSum, int sum, boolean[] used, int count, int k) {
         if (count == k) {
-            for (int i = 0; i < used.length; i++) {
-                if (!used[i]) {
-                    return false;
-                }
-            }
-            
             return true;
         }
         
