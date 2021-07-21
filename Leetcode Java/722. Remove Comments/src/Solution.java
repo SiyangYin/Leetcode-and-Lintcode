@@ -13,15 +13,9 @@ public class Solution {
         sb.setLength(0);
         for (int i = 0; i < s.length(); ) {
             if (i + 1 < s.length() && s.startsWith("//", i)) {
-                while (s.charAt(i) != '\n') {
-                    i++;
-                }
+                i = s.indexOf('\n', i);
             } else if (i + 1 < s.length() && s.startsWith("/*", i)) {
-                i += 2;
-                while (!s.startsWith("*/", i)) {
-                    i++;
-                }
-                i += 2;
+                i = s.indexOf("*/", i + 2) + 2;
             } else if (s.charAt(i) == '\n') {
                 if (sb.length() > 0) {
                     res.add(sb.toString());
