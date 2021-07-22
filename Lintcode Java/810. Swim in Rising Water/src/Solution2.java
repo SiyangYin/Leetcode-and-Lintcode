@@ -14,8 +14,8 @@ public class Solution2 {
     }
     
     class UnionFind {
-        int[] p;
-    
+        private int[] p;
+        
         public UnionFind(int size) {
             p = new int[size];
             for (int i = 0; i < size; i++) {
