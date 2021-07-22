@@ -10,13 +10,14 @@ public class Solution {
         while (!minHeap.isEmpty()) {
             int[] cur = minHeap.poll();
             int x = cur[1], y = cur[2];
-            if (x == grid.length - 1 && y == grid[0].length - 1) {
-                return cur[0];
-            }
             
             for (int i = 0; i < 4; i++) {
                 int nextX = x + d[i], nextY = y + d[i + 1];
                 if (0 <= nextX && nextX < grid.length && 0 <= nextY && nextY < grid[0].length && !vis[nextX][nextY]) {
+                    if (nextX == grid.length - 1 && nextY == grid[0].length - 1) {
+                        return Math.max(cur[0], grid[nextX][nextY]);
+                    }
+                    
                     vis[nextX][nextY] = true;
                     minHeap.offer(new int[]{Math.max(cur[0], grid[nextX][nextY]), nextX, nextY});
                 }
