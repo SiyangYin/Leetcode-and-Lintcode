@@ -14,7 +14,7 @@ public class Solution {
                 lastStep = nums[p];
                 nums[p] = mark;
                 p = next;
-            } while (p != i && nums[p] < BASE && sign == nums[p] > 0);
+            } while (nums[p] < BASE && sign == nums[p] > 0);
             
             if (lastStep % n != 0 && nums[p] == mark) {
                 return true;
@@ -22,5 +22,9 @@ public class Solution {
         }
         
         return false;
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(new Solution().circularArrayLoop(new int[]{-2, 1, -1, -2, -2}));
     }
 }
