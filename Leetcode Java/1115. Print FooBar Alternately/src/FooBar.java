@@ -1,67 +1,61 @@
-class FooBar {
+public class FooBar {
+    
     private int n;
-    private boolean foo;
+    private boolean runFoo;
     
     public FooBar(int n) {
         this.n = n;
-        foo = true;
+        runFoo = true;
     }
     
     public void foo(Runnable printFoo) throws InterruptedException {
-        
         for (int i = 0; i < n; i++) {
             synchronized (this) {
-                while (foo) {
-                    // printFoo.run() outputs "foo". Do not change or remove this line.
-                    printFoo.run();
-                    foo = false;
-                    notify();
+                // wait until bar() is running
+                while (!runFoo) {
                     wait();
                 }
+                
+                // printFoo.run() outputs "foo". Do not change or remove this line.
+                printFoo.run();
+                runFoo = false;
+                notifyAll();
             }
-            
         }
-        notify();
     }
     
     public void bar(Runnable printBar) throws InterruptedException {
-        
         for (int i = 0; i < n; i++) {
             synchronized (this) {
-                while (!foo) {
-                    // printBar.run() outputs "bar". Do not change or remove this line.
-                    printBar.run();
-                    foo = true;
-                    notify();
+                // wait until foo() is running
+                while (runFoo) {
                     wait();
                 }
+                
+                // printBar.run() outputs "bar". Do not change or remove this line.
+                printBar.run();
+                runFoo = true;
+                notifyAll();
             }
-            
         }
-        notify();
     }
-}
-
-class Main {
+    
     public static void main(String[] args) {
-        FooBar fooBar = new FooBar(3);
-        Thread t1 = new Thread(() -> {
+        FooBar fooBar = new FooBar(5);
+        new Thread(() -> {
             try {
-                fooBar.foo(() -> System.out.println("foo"));
+                fooBar.foo(() -> System.out.print("foo"));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }, "t1");
+        }, "t1").start();
         
-        Thread t2 = new Thread(() -> {
+        new Thread(() -> {
             try {
-                fooBar.foo(() -> System.out.println("bar"));
+                fooBar.bar(() -> System.out.print("bar"));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }, "t2");
-        
-        t2.start();
-        t1.start();
+        }, "t2").start();
     }
 }
