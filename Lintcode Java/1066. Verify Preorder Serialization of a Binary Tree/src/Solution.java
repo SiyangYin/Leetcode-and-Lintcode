@@ -32,5 +32,7 @@ public class Solution {
     public static void main(String[] args) {
         System.out.println(new Solution().isValidSerialization("9,3,4,#,#,1,#,#,2,#,6,#,#"));
         System.out.println(new Solution().isValidSerialization("9,3,4,#,#,#,#"));
+        System.out.println(new Solution().isValidSerialization("9,#,3,#,4,#,#"));
+        System.out.println(new Solution().isValidSerialization("9,#,#,#,#,#"));
     }
 }
