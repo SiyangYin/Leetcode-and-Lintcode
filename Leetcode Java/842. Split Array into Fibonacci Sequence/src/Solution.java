@@ -13,7 +13,7 @@ public class Solution {
                     break;
                 }
                 
-                res.add((Integer.parseInt(n)));
+                res.add(Integer.parseInt(n));
                 while (true) {
                     if (s.charAt(a) == '0' && b - a != 1) {
                         break;
@@ -85,7 +85,7 @@ public class Solution {
     }
     
     private boolean check(String n) {
-        String max = "2147483647";
+        String max = String.valueOf(Integer.MAX_VALUE);
         if (n.length() != max.length()) {
             return n.length() < max.length();
         }
