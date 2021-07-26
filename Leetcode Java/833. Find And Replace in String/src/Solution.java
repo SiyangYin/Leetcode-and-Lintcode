@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,14 +8,13 @@ public class Solution {
             smap.put(indices[i], sources[i]);
             tmap.put(indices[i], targets[i]);
         }
-        Arrays.sort(indices);
         
         StringBuilder sb = new StringBuilder();
         for (int i = 0, j = 0; i < s.length(); i++) {
             sb.append(s.charAt(i));
-            if (j < indices.length && indices[j] == i) {
+            if (smap.containsKey(i)) {
                 int k = i;
-                String source = smap.get(indices[j]);
+                String source = smap.get(i);
                 for (; k < s.length() && k < i + source.length(); k++) {
                     if (s.charAt(k) != source.charAt(k - i)) {
                         break;
@@ -25,7 +23,7 @@ public class Solution {
                 
                 if (k == source.length() + i) {
                     sb.setLength(sb.length() - 1);
-                    sb.append(tmap.get(indices[j]));
+                    sb.append(tmap.get(i));
                     i += source.length() - 1;
                 }
                 
