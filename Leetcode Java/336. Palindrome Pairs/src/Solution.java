@@ -13,25 +13,29 @@ public class Solution {
         for (int i = 0; i < words.length; i++) {
             String s = words[i];
             long pow = 1, hash = 0;
-            // 长在前
+            // 长在前，枚举分界点k，并且考虑s[k:]是回文串的情况，找s[0:k-1]镜像
             for (int k = 0; k <= s.length(); k++) {
-                if (k == s.length() || isPalin(s, k, s.length() - 1)) {
+                if (k >= 1) {
+                    hash += s.charAt(k - 1) * pow;
+                    pow *= P;
+                }
+                
+                if (isPalin(s, k, s.length() - 1)) {
                     int idx = map.getOrDefault(hash, -1);
                     if (idx != -1 && idx != i) {
                         res.add(Arrays.asList(i, idx));
                     }
                 }
-                
-                if (k < s.length()) {
-                    hash += s.charAt(k) * pow;
-                    pow *= P;
-                }
             }
             
             hash = 0;
-            // 长在后
-            for (int k = s.length() - 1; k >= -1; k--) {
-                if (k == -1 || isPalin(s, 0, k)) {
+            // 长在后，枚举分界点k，并且考虑s[0:k-1]是回文串的情况，找s[k:]的镜像
+            for (int k = s.length(); k >= 0; k--) {
+                if (k < s.length()) {
+                    hash = hash * P + s.charAt(k);
+                }
+                
+                if (isPalin(s, 0, k - 1)) {
                     int idx = map.getOrDefault(hash, -1);
                     if (idx != -1 && idx != i) {
                         if (words[idx].length() == s.length()) {
@@ -40,10 +44,6 @@ public class Solution {
                         
                         res.add(Arrays.asList(idx, i));
                     }
-                }
-                
-                if (k >= 0) {
-                    hash = hash * P + s.charAt(k);
                 }
             }
         }
@@ -74,6 +74,7 @@ public class Solution {
     
     public static void main(String[] args) {
         String[] ss = {"abcd", "dcba", "lls", "s", "sssll"};
+        // String[] ss = {"a", ""};
         System.out.println(new Solution().palindromePairs(ss));
     }
 }

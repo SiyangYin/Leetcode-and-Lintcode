@@ -5,19 +5,19 @@ import java.util.List;
 
 public class NestedIterator implements Iterator<Integer> {
     
-    private Deque<NestedInteger> stack;
+    private Deque<NestedInteger> stk;
     
     public NestedIterator(List<NestedInteger> nestedList) {
-        stack = new ArrayDeque<>();
+        stk = new ArrayDeque<>();
         for (int i = nestedList.size() - 1; i >= 0; i--) {
-            stack.push(nestedList.get(i));
+            stk.push(nestedList.get(i));
         }
     }
     
     @Override
     public Integer next() {
         if (hasNext()) {
-            return stack.pop().getInteger();
+            return stk.pop().getInteger();
         } else {
             return null;
         }
@@ -25,14 +25,14 @@ public class NestedIterator implements Iterator<Integer> {
     
     @Override
     public boolean hasNext() {
-        while (!stack.isEmpty() && !stack.peek().isInteger()) {
-            NestedInteger topList = stack.pop();
+        while (!stk.isEmpty() && !stk.peek().isInteger()) {
+            NestedInteger topList = stk.pop();
             for (int i = topList.getList().size() - 1; i >= 0; i--) {
-                stack.push(topList.getList().get(i));
+                stk.push(topList.getList().get(i));
             }
         }
         
-        return !stack.isEmpty();
+        return !stk.isEmpty();
     }
 }
 
