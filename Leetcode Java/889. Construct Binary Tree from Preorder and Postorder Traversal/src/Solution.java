@@ -20,14 +20,15 @@ public class Solution {
         }
         
         TreeNode root = new TreeNode(pre[l1]);
-        int leftRoot = l1 + 1 < pre.length ? pre[l1 + 1] : -1, rightRoot = r2 - 1 >= 0 ? post[r2 - 1] : -1;
-        root.left = leftRoot == -1 ? null : dfs(pre, l1 + 1, posPre[rightRoot] - 1, post, l2, posPost[leftRoot], posPre, posPost);
-        root.right = rightRoot == -1 ? null : dfs(pre, posPre[rightRoot], r1, post, posPost[leftRoot] + 1, r2 - 1, posPre, posPost);
+        int leftRoot = pre[l1 + 1], rightRoot = post[r2 - 1];
+        root.left = dfs(pre, l1 + 1, posPre[rightRoot] - 1, post, l2, posPost[leftRoot], posPre, posPost);
+        root.right = dfs(pre, posPre[rightRoot], r1, post, posPost[leftRoot] + 1, r2 - 1, posPre, posPost);
         return root;
     }
     
     public static void main(String[] args) {
         int[] pre = {1, 2, 4, 5, 3, 6, 7}, post = {4, 5, 2, 6, 7, 3, 1};
+        // int[] pre = {1, 2, 4, 3, 5, 6}, post = {4, 2, 5, 6, 3, 1};
         TreeNode root = new Solution().constructFromPrePost(pre, post);
         
         System.out.println();
