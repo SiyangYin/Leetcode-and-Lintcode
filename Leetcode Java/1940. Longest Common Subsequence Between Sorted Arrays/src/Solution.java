@@ -11,9 +11,9 @@ public class Solution {
         }
         
         List<Integer> res = new ArrayList<>();
-        for (int number = 1; number <= 100; number++) {
-            if (cnt[number] == arrays.length) {
-                res.add(number);
+        for (int i = 1; i <= 100; i++) {
+            if (cnt[i] == arrays.length) {
+                res.add(i);
             }
         }
         
