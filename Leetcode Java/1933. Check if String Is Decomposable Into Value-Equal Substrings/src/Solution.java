@@ -1,5 +1,9 @@
 public class Solution {
     public boolean isDecomposable(String s) {
+        if (s.length() % 3 != 2) {
+            return false;
+        }
+        
         int cnt = 0;
         for (int i = 0; i < s.length(); i++) {
             int j = i;
