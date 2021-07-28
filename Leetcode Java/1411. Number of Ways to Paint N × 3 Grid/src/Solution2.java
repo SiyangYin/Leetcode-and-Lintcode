@@ -11,7 +11,7 @@ public class Solution2 {
             this.a22 = a22;
         }
         
-        public Matrix mult(Matrix B) {
+        public void mult(Matrix B) {
             long c11 = (a11 * B.a11 + a12 * B.a21) % MOD;
             long c12 = (a11 * B.a12 + a12 * B.a22) % MOD;
             long c21 = (a21 * B.a11 + a22 * B.a21) % MOD;
@@ -20,7 +20,6 @@ public class Solution2 {
             a12 = c12;
             a21 = c21;
             a22 = c22;
-            return this;
         }
     }
     
