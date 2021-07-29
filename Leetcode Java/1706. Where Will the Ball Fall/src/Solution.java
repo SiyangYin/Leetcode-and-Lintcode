@@ -9,18 +9,22 @@ public class Solution {
     }
     
     private int dfs(int x, int y, int[][] g) {
-        if (x == g.length - 1) {
-            if (g[x][y] == 1) {
-                return y + 1 < g[0].length ? g[x][y + 1] == 1 ? y + 1 : -1 : -1;
-            } else {
-                return y - 1 >= 0 ? g[x][y - 1] == -1 ? y - 1 : -1 : -1;
-            }
+        if (x == g.length) {
+            return y;
         }
         
         if (g[x][y] == 1) {
-            return y + 1 < g[0].length ? g[x][y + 1] == 1 ? dfs(x + 1, y + 1, g) : -1 : -1;
+            if (y == g[0].length - 1 || g[x][y + 1] == -1) {
+                return -1;
+            } else {
+                return dfs(x + 1, y + 1, g);
+            }
         } else {
-            return y - 1 >= 0 ? g[x][y - 1] == -1 ? dfs(x + 1, y - 1, g) : -1 : -1;
+            if (y == 0 || g[x][y - 1] == 1) {
+                return -1;
+            } else {
+                return dfs(x + 1, y - 1, g);
+            }
         }
     }
 }
