@@ -14,6 +14,10 @@ public class Solution {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (grid2[i][j] == 1) {
+                    if (grid1[i][j] == 0) {
+                        continue;
+                    }
+                    
                     if (dfs2(i, j, grid2, grid1, d, grid1[i][j])) {
                         res++;
                     }
@@ -25,7 +29,7 @@ public class Solution {
     }
     
     private boolean dfs2(int x, int y, int[][] g, int[][] g1, int[] d, int id) {
-        boolean res = id != 0 && g1[x][y] == id;
+        boolean res = g1[x][y] == id;
         
         g[x][y] = 0;
         for (int i = 0; i < 4; i++) {
