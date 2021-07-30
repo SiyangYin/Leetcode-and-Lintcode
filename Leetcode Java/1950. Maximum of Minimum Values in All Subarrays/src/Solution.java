@@ -25,8 +25,8 @@ public class Solution {
         
         int[] res = new int[n];
         for (int i = 0; i < n; i++) {
-            int len = right[i] - left[i] - 2;
-            res[len] = Math.max(res[len], nums[i]);
+            int len = right[i] - left[i] - 1;
+            res[len - 1] = Math.max(res[len - 1], nums[i]);
         }
         for (int i = n - 2; i >= 0; i--) {
             res[i] = Math.max(res[i], res[i + 1]);
@@ -36,6 +36,7 @@ public class Solution {
     }
     
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(new Solution().findMaximums(new int[]{0, 1, 2, 4})));
+        // System.out.println(Arrays.toString(new Solution().findMaximums(new int[]{0, 1, 2, 4})));
+        System.out.println(Arrays.toString(new Solution().findMaximums(new int[]{1, 2, 5, 1})));
     }
 }
