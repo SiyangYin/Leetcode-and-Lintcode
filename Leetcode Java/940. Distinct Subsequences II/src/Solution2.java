@@ -17,13 +17,14 @@ public class Solution2 {
             return f[u];
         }
     
+        f[u] = 1;
         for (int i = 0; i < 26; i++) {
             if (dfa[u][i] > 0) {
                 f[u] = (f[u] + dfs(dfa[u][i], dfa, MOD, f)) % MOD;
             }
         }
         
-        return ++f[u];
+        return f[u];
     }
     
     public static void main(String[] args) {
