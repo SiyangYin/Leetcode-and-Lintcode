@@ -2,8 +2,7 @@ import java.util.List;
 
 public class Solution {
     public int leftMostColumnWithOne(BinaryMatrix binaryMatrix) {
-        List<Integer> dim = binaryMatrix.dimensions();
-        int col = dim.get(1);
+        int col = binaryMatrix.dimensions().get(1);
         int l = 0, r = col - 1;
         while (l < r) {
             int mid = l + (r - l >> 1);
