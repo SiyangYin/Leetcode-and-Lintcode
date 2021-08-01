@@ -33,10 +33,10 @@ public class Solution2 {
         Pair start = new Pair(0, 0);
         Map<Pair, Integer> map = new HashMap<>();
         dfs(start, map, master, d, dir);
-        return target == null ? -1 : bfs(start, target, map, dir);
+        return target == null ? -1 : bfs(start, map, dir);
     }
     
-    private int bfs(Pair start, Pair target, Map<Pair, Integer> map, int[] dir) {
+    private int bfs(Pair start, Map<Pair, Integer> map, int[] dir) {
         start.f = heur(start, target);
         PriorityQueue<Pair> minHeap = new PriorityQueue<>((p1, p2) -> Integer.compare(p1.f, p2.f));
         minHeap.offer(start);

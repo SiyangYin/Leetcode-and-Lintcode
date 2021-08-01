@@ -117,9 +117,9 @@ public class Solution {
 
 class GridMasterImpl extends GridMaster {
     
-    int[][] g;
-    int[] cur;
-    Map<Character, int[]> map = Map.of('U', new int[]{-1, 0},
+    private int[][] g;
+    private int[] cur;
+    private Map<Character, int[]> map = Map.of('U', new int[]{-1, 0},
             'D', new int[]{1, 0}, 'L', new int[]{0, -1}, 'R', new int[]{0, 1});
     
     public GridMasterImpl(int[][] g, int[] cur) {
