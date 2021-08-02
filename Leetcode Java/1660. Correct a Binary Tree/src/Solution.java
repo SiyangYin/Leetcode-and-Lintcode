@@ -11,41 +11,29 @@ public class Solution {
         while (!queue.isEmpty()) {
             for (int i = queue.size() - 1; i >= 0; i--) {
                 TreeNode cur = queue.poll();
-                boolean flag = false;
+                if (map.containsKey(cur.left) || map.containsKey(cur.right)) {
+                    TreeNode p = map.get(cur);
+                    if (cur == p.left) {
+                        p.left = null;
+                    } else {
+                        p.right = null;
+                    }
+                    
+                    return root;
+                }
+                
                 if (cur.left != null) {
                     queue.offer(cur.left);
-                    if (!map.containsKey(cur.left)) {
-                        map.put(cur.left, cur);
-                    } else {
-                        flag = true;
-                    }
+                    map.put(cur.left, cur);
                 }
                 if (cur.right != null) {
                     queue.offer(cur.right);
-                    if (!map.containsKey(cur.right)) {
-                        map.put(cur.right, cur);
-                    } else {
-                        flag = true;
-                    }
-                }
-                
-                if (flag) {
-                    remove(map, cur);
-                    return root;
+                    map.put(cur.right, cur);
                 }
             }
         }
         
         return root;
-    }
-    
-    private void remove(Map<TreeNode, TreeNode> parent, TreeNode cur) {
-        TreeNode p = parent.get(cur);
-        if (cur == p.left) {
-            p.left = null;
-        } else {
-            p.right = null;
-        }
     }
 }
 
