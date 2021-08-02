@@ -58,9 +58,10 @@ public class Solution {
     public boolean twoSumBSTs(TreeNode root1, TreeNode root2, int target) {
         BSTIterator it1 = new BSTIterator(root1, false), it2 = new BSTIterator(root2, true);
         while (it1.hasNext() && it2.hasNext()) {
-            if (it1.peekNext().val + it2.peekNext().val < target) {
+            int v1 = it1.peekNext().val, v2 = it2.peekNext().val;
+            if (v1 + v2 < target) {
                 it1.next();
-            } else if (it1.peekNext().val + it2.peekNext().val > target) {
+            } else if (v1 + v2 > target) {
                 it2.next();
             } else {
                 return true;
