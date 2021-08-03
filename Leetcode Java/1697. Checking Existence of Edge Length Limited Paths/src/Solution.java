@@ -30,36 +30,26 @@ public class Solution {
         }
     }
     
-    class Query {
-        int idx;
-        int[] query;
-        
-        public Query(int idx, int[] query) {
-            this.idx = idx;
-            this.query = query;
-        }
-    }
-    
     public boolean[] distanceLimitedPathsExist(int n, int[][] edgeList, int[][] queries) {
-        List<Query> list = new ArrayList<>();
+        List<Integer> id = new ArrayList<>();
         for (int i = 0; i < queries.length; i++) {
-            list.add(new Query(i, queries[i]));
+            id.add(i);
         }
-        list.sort((q1, q2) -> Integer.compare(q1.query[2], q2.query[2]));
+        id.sort((x, y) -> Integer.compare(queries[x][2], queries[y][2]));
         
         UnionFind uf = new UnionFind(n);
         Arrays.sort(edgeList, (e1, e2) -> Integer.compare(e1[2], e2[2]));
         
         boolean[] res = new boolean[queries.length];
-        for (int i = 0, j = 0; i < list.size(); i++) {
-            Query q = list.get(i);
-            int x = q.query[0], y = q.query[1], len = q.query[2];
+        for (int i = 0, j = 0; i < id.size(); i++) {
+            int idx = id.get(i);
+            int x = queries[idx][0], y = queries[idx][1], len = queries[idx][2];
             while (j < edgeList.length && edgeList[j][2] < len) {
                 uf.union(edgeList[j][0], edgeList[j][1]);
                 j++;
             }
             
-            res[q.idx] = uf.find(x) == uf.find(y);
+            res[idx] = uf.find(x) == uf.find(y);
         }
         
         return res;
