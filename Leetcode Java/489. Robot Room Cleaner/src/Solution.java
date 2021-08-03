@@ -44,12 +44,60 @@ public class Solution {
         }
     }
     
+    public static void main(String[] args) {
+        int[][] g = {{0, 0}, {0, -1}};
+        Robot robot = new RobotImpl(g, 0, 0);
+        new Solution().cleanRoom(robot);
+    }
+    
     private void reset(Robot robot) {
         robot.turnRight();
         robot.turnRight();
         robot.move();
         robot.turnRight();
         robot.turnRight();
+    }
+}
+
+class RobotImpl implements Robot {
+    
+    final int BLOCK= -1, EMPTY = 0, CLEANED = 1;
+    int[][] g;
+    int dir;
+    int x, y;
+    int[] d = {-1, 0, 1, 0, -1};
+    
+    public RobotImpl(int[][] g, int x, int y) {
+        this.g = g;
+        this.x = x;
+        this.y = y;
+    }
+    
+    @Override
+    public boolean move() {
+        int nextX = x + d[dir], nextY = y + d[dir + 1];
+        if (0 <= nextX && nextX < g.length && 0 <= nextY && nextY < g[0].length && g[nextX][nextY] != BLOCK) {
+            x = nextX;
+            y = nextY;
+            return true;
+        }
+        
+        return false;
+    }
+    
+    @Override
+    public void turnLeft() {
+        dir = (dir + 3) % 4;
+    }
+    
+    @Override
+    public void turnRight() {
+        dir = (dir + 1) % 4;
+    }
+    
+    @Override
+    public void clean() {
+        g[x][y] = CLEANED;
     }
 }
 
