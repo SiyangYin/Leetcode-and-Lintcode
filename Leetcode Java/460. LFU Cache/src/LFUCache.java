@@ -75,9 +75,9 @@ public class LFUCache {
     }
     
     public void put(int key, int value) {
-        // if (capacity == 0) {
-        //     return;
-        // }
+        if (capacity == 0) {
+            return;
+        }
         
         if (nodeMap.containsKey(key)) {
             Node node = nodeMap.get(key);

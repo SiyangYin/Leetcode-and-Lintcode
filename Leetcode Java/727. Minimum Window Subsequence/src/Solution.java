@@ -5,7 +5,7 @@ public class Solution {
         int idx = 0, end = 0;
         while ((end = compute(idx, dfa, s2)) != 0) {
             int begin = dfa[idx][s2.charAt(0) - 'a'];
-            if (res.isEmpty() || end - begin + 1 < res.length()) {
+            if (res.isEmpty() || end - (begin - 1) < res.length()) {
                 res = s1.substring(begin - 1, end);
             }
             
