@@ -7,8 +7,12 @@ public class Solution {
         Map<String, Integer> map = new HashMap<>();
         int size = 0;
         for (List<String> equation : equations) {
-            map.putIfAbsent(equation.get(0), size++);
-            map.putIfAbsent(equation.get(1), size++);
+            if (!map.containsKey(equation.get(0))) {
+                map.put(equation.get(0), size++);
+            }
+            if (!map.containsKey(equation.get(1))) {
+                map.put(equation.get(1), size++);
+            }
         }
         
         double[][] mat = new double[size][size];
