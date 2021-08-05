@@ -30,6 +30,7 @@ public class Solution {
             if (minHeap.size() > k) {
                 sum -= minHeap.poll();
             }
+            
             if (minHeap.size() == k) {
                 res = Math.min(res, sum * pair.ratio);
             }
