@@ -1,8 +1,10 @@
 public class Solution {
     public int mirrorReflection(int p, int q) {
-        int lcm = p * q / gcd(p, q);
-        int[][] a = {{2, 1}, {1, 0}};
-        return a[(lcm / q) & 1][(lcm / p + 1) & 1];
+        int x = p * q / gcd(p, q);
+        if (x / q % 2 != 0) {
+            return x / p % 2 != 0 ? 1 : 0;
+        }
+        return 2;
     }
     
     private int gcd(int x, int y) {
