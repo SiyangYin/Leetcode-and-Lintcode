@@ -16,7 +16,7 @@ public class TicTacToe {
                 board[i][j] = '-';
             }
         }
-        currentPlayer = 'O';
+        currentPlayer = 'X';
         end = false;
     }
     
@@ -74,6 +74,7 @@ public class TicTacToe {
         }
         
         end = true;
+        System.out.println("it's a draw");
     }
 }
 
