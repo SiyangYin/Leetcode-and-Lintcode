@@ -1,4 +1,8 @@
 public class Solution extends Reader4 {
+    
+    private char[] buffer = new char[4];
+    private int head, tail;
+    
     /**
      * @param buf Destination buffer
      * @param n   Number of characters to read
@@ -6,18 +10,18 @@ public class Solution extends Reader4 {
      */
     public int read(char[] buf, int n) {
         int res = 0;
-        char[] buf4 = new char[4];
         while (res < n) {
-            int x = read4(buf4);
-            for (int i = 0; i < x; i++) {
-                buf[res++] = buf4[i];
-                if (res == n) {
-                    return res;
-                }
+            if (head == tail) {
+                head = 0;
+                tail = read4(buffer);
             }
             
-            if (x < 4) {
+            if (tail == 0) {
                 break;
+            }
+            
+            while (res < n && head < tail) {
+                buf[res++] = buffer[head++];
             }
         }
         
