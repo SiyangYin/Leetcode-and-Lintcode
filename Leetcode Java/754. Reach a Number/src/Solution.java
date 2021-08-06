@@ -1,21 +1,11 @@
 public class Solution {
     public int reachNumber(int target) {
-        int i = 0;
-        int sum = 0;
-        
         target = Math.abs(target);
-        while (sum < target) {
+        int i = 0, sum = 0;
+        while (sum < target || (sum - target) % 2 != 0) {
             sum += ++i;
         }
         
-        if ((sum - target) % 2 == 0) {
-            return i;
-        } else {
-            if ((sum + i + 1 - target) % 2 == 0) {
-                return i + 1;
-            } else {
-                return i + 2;
-            }
-        }
+        return i;
     }
 }
