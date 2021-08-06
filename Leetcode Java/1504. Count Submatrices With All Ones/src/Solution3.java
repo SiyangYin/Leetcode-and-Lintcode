@@ -13,12 +13,9 @@ public class Solution3 {
             }
         }
         
-        // System.out.println(Arrays.deepToString(mat));
-        
         int res = 0;
-        for (int i = 0; i < m; i++) {
-            int count = calculate(mat[i]);
-            res += count;
+        for (int[] row : mat) {
+            res += calculate(row);
         }
         
         return res;
