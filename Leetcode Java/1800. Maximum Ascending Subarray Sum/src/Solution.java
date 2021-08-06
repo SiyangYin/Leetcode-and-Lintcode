@@ -10,7 +10,6 @@ public class Solution {
             }
             
             res = Math.max(res, sum);
-            sum = 0;
             i = j - 1;
         }
         

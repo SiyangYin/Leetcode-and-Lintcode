@@ -14,16 +14,19 @@ public class Solution {
         }
         
         public void add(int idx, int v) {
-            for (int i = idx; i <= size; i += lowbit(i)) {
-                tr[i] += v;
+            while (idx <= size) {
+                tr[idx] += v;
+                idx += lowbit(idx);
             }
         }
         
         public int sum(int idx) {
             int res = 0;
-            for (int i = idx; i > 0; i -= lowbit(i)) {
-                res += tr[i];
+            while (idx > 0) {
+                res += tr[idx];
+                idx -= lowbit(idx);
             }
+            
             return res;
         }
         
