@@ -4,27 +4,26 @@ public class Solution {
             return true;
         }
         
-        int[] next = buildNext(s);
-        int n = s.length(), l = next[n];
+        int[] ne = buildNext(s);
+        int n = s.length(), l = ne[n];
         return l != 0 && n % (n - l) == 0;
     }
     
     private int[] buildNext(String s) {
-        int[] next = new int[s.length() + 1];
-        int i = 0, j = next[0] = -1;
-        while (i < s.length()) {
-            while (j != -1 && s.charAt(i) != s.charAt(j)) {
-                j = next[j];
+        int[] ne = new int[s.length() + 1];
+        for (int i = 0, j = ne[0] = -1; i < s.length(); ) {
+            if (j == -1 || s.charAt(i) == s.charAt(j)) {
+                ne[++i] = ++j;
+            } else {
+                j = ne[j];
             }
-            i++;
-            j++;
-            next[i] = j;
         }
         
-        return next;
+        return ne;
     }
     
     public static void main(String[] args) {
-        System.out.println(new Solution().repeatedSubstringPattern("aaaab"));
+        // System.out.println(new Solution().repeatedSubstringPattern("aaaab"));
+        System.out.println(new Solution().repeatedSubstringPattern("abab"));
     }
 }
