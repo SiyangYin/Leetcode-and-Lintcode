@@ -1,17 +1,15 @@
-import java.util.HashSet;
-import java.util.Set;
-
 public class Solution {
     public int repeatedNTimes(int[] A) {
-        Set<Integer> set = new HashSet<>();
-        for (int x : A) {
-            if (set.contains(x)) {
-                return x;
+        for (int i = 0; i < A.length; i += 2) {
+            if (A[i] == A[i + 1]) {
+                return A[i];
             }
-            
-            set.add(x);
         }
         
-        return -1;
+        if (A[0] == A[2] || A[0] == A[3]) {
+            return A[0];
+        }
+        
+        return A[1];
     }
 }
