@@ -11,6 +11,8 @@ public class Solution {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 if (grid[i][j] == 1) {
+                    list.clear();
+                    
                     dfs(i, j, grid, list, d);
                     double hash = hash(list);
                     boolean found = false;
@@ -24,8 +26,6 @@ public class Solution {
                     if (!found) {
                         hashList.add(hash);
                     }
-                    
-                    list.clear();
                 }
             }
         }
@@ -42,7 +42,7 @@ public class Solution {
             }
         }
         
-        return Math.sqrt(hash);
+        return hash;
     }
     
     private double pow2(int x) {
