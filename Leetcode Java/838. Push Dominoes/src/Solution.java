@@ -40,5 +40,6 @@ public class Solution {
     
     public static void main(String[] args) {
         System.out.println(new Solution().pushDominoes("R.R...L"));
+        System.out.println(new Solution().pushDominoes("RRR...L"));
     }
 }
