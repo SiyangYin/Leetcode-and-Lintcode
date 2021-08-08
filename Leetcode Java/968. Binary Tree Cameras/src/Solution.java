@@ -12,18 +12,9 @@ public class Solution {
         int[] left = dfs(cur.left), right = dfs(cur.right);
         
         int[] res = new int[3];
-        res[0] = min(left[1], left[2]) + min(right[1], right[2]);
-        res[1] = min(left[2] + min(right[1], right[2]), right[2] + min(left[1], left[2]));
-        res[2] = 1 + min(left[0], left[1], left[2]) + min(right[0], right[1], right[2]);
-        return res;
-    }
-    
-    int min(int... vals) {
-        int res = Integer.MAX_VALUE;
-        for (int val : vals) {
-            res = Math.min(res, val);
-        }
-        
+        res[0] = Math.min(left[1], left[2]) + Math.min(right[1], right[2]);
+        res[1] = Math.min(left[2] + Math.min(right[1], right[2]), right[2] + Math.min(left[1], left[2]));
+        res[2] = 1 + Math.min(left[0], Math.min(left[1], left[2])) + Math.min(right[0], Math.min(right[1], right[2]));
         return res;
     }
 }
