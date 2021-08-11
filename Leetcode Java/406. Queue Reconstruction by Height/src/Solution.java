@@ -1,24 +1,23 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.PriorityQueue;
 
 public class Solution {
     public int[][] reconstructQueue(int[][] people) {
-        PriorityQueue<int[]> queue = new PriorityQueue<>(
-                (a, b) -> a[0] == b[0] ? Integer.compare(a[1], b[1]) : Integer.compare(b[0], a[0]));
+        Arrays.sort(people, (a, b) -> a[0] != b[0] ?
+                -Integer.compare(a[0], b[0]) : Integer.compare(a[1], b[1]));
         
+        List<int[]> list = new ArrayList<>();
         for (int[] cur : people) {
-            queue.offer(cur);
+            list.add(cur[1], cur);
         }
         
-        List<int[]> res = new ArrayList<>();
-        while (!queue.isEmpty()) {
-            int[] person = queue.poll();
-            res.add(person[1], person);
+        int[][] res = new int[people.length][];
+        for (int i = 0; i < list.size(); i++) {
+            res[i] = list.get(i);
         }
         
-        return res.toArray(new int[people.length][2]);
+        return res;
     }
     
     public static void main(String[] args) {

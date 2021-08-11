@@ -1,9 +1,9 @@
-import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.LinkedList;
 
 public class Solution {
     public String simplifyPath(String path) {
-        Deque<String> stack = new ArrayDeque<>();
+        Deque<String> stk = new LinkedList<>();
         String[] dirs = path.split("/");
         for (String s : dirs) {
             if (s.isEmpty()) {
@@ -11,18 +11,19 @@ public class Solution {
             }
             
             if (!".".equals(s) && !"..".equals(s)) {
-                stack.push(s);
-            } else if ("..".equals(s) && !stack.isEmpty()) {
-                stack.pop();
+                stk.push(s);
+            } else if ("..".equals(s) && !stk.isEmpty()) {
+                stk.pop();
             }
         }
         
         StringBuilder res = new StringBuilder();
         
-        while (!stack.isEmpty()) {
+        while (!stk.isEmpty()) {
             res.append('/');
-            res.append(stack.pollLast());
+            res.append(stk.pollLast());
         }
+        
         if (res.length() == 0) {
             res.append("/");
         }

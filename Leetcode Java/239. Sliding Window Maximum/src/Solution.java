@@ -8,23 +8,26 @@ public class Solution {
             return nums;
         }
         
-        int[] result = new int[nums.length - k + 1];
+        int[] res = new int[nums.length - k + 1];
     
         Deque<Integer> deque = new ArrayDeque<>();
         for (int i = 0; i < nums.length; i++) {
             while (!deque.isEmpty() && nums[deque.peekLast()] <= nums[i]) {
                 deque.pollLast();
             }
+            
             deque.offerLast(i);
+            
             if (deque.peekFirst() <= i - k) {
                 deque.pollFirst();
             }
+            
             if (i >= k - 1) {
-                result[i - k + 1] = nums[deque.peekFirst()];
+                res[i - k + 1] = nums[deque.peekFirst()];
             }
         }
         
-        return result;
+        return res;
     }
     
     public static void main(String[] args) {
