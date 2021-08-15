@@ -29,7 +29,7 @@ public class Solution {
         }
         
         f[l][r] = cuts[r] - cuts[l];
-        int min = 0x3f3f3f3f;
+        int min = Integer.MAX_VALUE;
         for (int i = l + 1; i < r; i++) {
             min = Math.min(min, dfs(l, i, cuts, f) + dfs(i, r, cuts, f));
         }
