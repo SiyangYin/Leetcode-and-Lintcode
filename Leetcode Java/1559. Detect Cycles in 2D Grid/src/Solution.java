@@ -1,15 +1,15 @@
 public class Solution {
     class UnionFind {
-        private int[] p;
+        int[] p;
         
-        public UnionFind(int size) {
+        UnionFind(int size) {
             p = new int[size];
             for (int i = 0; i < size; i++) {
                 p[i] = i;
             }
         }
         
-        public int find(int x) {
+        int find(int x) {
             if (p[x] != x) {
                 p[x] = find(p[x]);
             }
@@ -17,7 +17,7 @@ public class Solution {
             return p[x];
         }
         
-        public boolean union(int x, int y) {
+        boolean union(int x, int y) {
             int px = find(x), py = find(y);
             if (px != py) {
                 p[px] = py;

@@ -1,23 +1,29 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class Solution {
     public int findTargetSumWays(int[] nums, int S) {
-        if (nums == null || nums.length == 0) {
-            return 0;
+        return dfs(0, 0, S, nums, new HashMap<>());
+    }
+    
+    int dfs(int pos, int sum, int target, int[] nums, Map<String, Integer> map) {
+        if (pos == nums.length) {
+            return sum == target ? 1 : 0;
         }
         
-        int[][] dp = new int[nums.length][S + 1];
-        dp[0][0] = nums[0] == 0 ? 1 : 0;
-        
-        
-        for (int i = 1; i < nums.length; i++) {
-            for (int j = 0; j < S + 1; j++) {
-                dp[i][j] =0;
-            }
+        String key = pos + " " + sum;
+        if (map.containsKey(key)) {
+            return map.get(key);
         }
         
-        return 0;
+        int res = 0;
+        res += dfs(pos + 1, sum + nums[pos], target, nums, map);
+        res += dfs(pos + 1, sum - nums[pos], target, nums, map);
+        map.put(key, res);
+        return res;
     }
     
     public static void main(String[] args) {
-    
+        System.out.println(new Solution().findTargetSumWays(new int[]{1, 1, 1, 1, 1}, 3));
     }
 }
