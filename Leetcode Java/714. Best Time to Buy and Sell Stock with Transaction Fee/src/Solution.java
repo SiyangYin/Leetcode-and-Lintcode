@@ -1,4 +1,4 @@
-import java.util.Arrays;
+
 
 public class Solution {
     public int maxProfit(int[] prices, int fee) {
@@ -16,8 +16,7 @@ public class Solution {
             buy[i] = Math.max(buy[i - 1], sell[i - 1] - prices[i]);
             sell[i] = Math.max(sell[i - 1], buy[i - 1] + prices[i] - fee);
         }
-        System.out.println(Arrays.toString(buy));
-        System.out.println(Arrays.toString(sell));
+        
         return sell[len - 1];
     }
     
