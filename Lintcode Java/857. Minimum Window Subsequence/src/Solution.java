@@ -18,10 +18,9 @@ public class Solution {
                 if (j == 0) {
                     f[i][j] = i;
                 } else {
-                    if (s1.charAt(i - 1) != s2.charAt(j - 1)) {
-                        f[i][j] = f[i - 1][j];
-                    } else {
-                        f[i][j] = Math.max(f[i - 1][j - 1], f[i - 1][j]);
+                    f[i][j] = f[i - 1][j];
+                    if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                        f[i][j] = Math.max(f[i][j], f[i - 1][j - 1]);
                     }
                 }
             }
