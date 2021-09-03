@@ -18,12 +18,12 @@ public class Solution {
         list.sort((w1, w2) -> Double.compare(w1[1] / w1[0], w2[1] / w2[0]));
         
         double res = 1e18, sum = 0.0;
-        PriorityQueue<double[]> minHeap = new PriorityQueue<>((d1, d2) -> -Double.compare(d1[0], d2[0]));
+        PriorityQueue<Double> minHeap = new PriorityQueue<>((x, y) -> -Double.compare(x, y));
         for (double[] w : list) {
             sum += w[0];
-            minHeap.offer(w);
+            minHeap.offer(w[0]);
             if (minHeap.size() > K) {
-                sum -= minHeap.poll()[0];
+                sum -= minHeap.poll();
             }
             
             if (minHeap.size() == K) {
