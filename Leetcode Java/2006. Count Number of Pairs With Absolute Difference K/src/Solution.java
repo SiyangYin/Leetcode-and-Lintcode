@@ -6,11 +6,7 @@ public class Solution {
         Map<Integer, Integer> map = new HashMap<>();
         int res = 0;
         for (int x : nums) {
-            res += map.getOrDefault(x - k, 0);
-            if (k != 0) {
-                res += map.getOrDefault(x + k, 0);
-            }
-            
+            res += map.getOrDefault(x - k, 0) + map.getOrDefault(x + k, 0);
             map.put(x, map.getOrDefault(x, 0) + 1);
         }
         
