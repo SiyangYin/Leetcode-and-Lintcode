@@ -1,43 +1,36 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Solution {
     public String convert(String s, int numRows) {
-        if (s == null || s.length() == 0 || numRows == 1) {
+        if (numRows == 1) {
             return s;
         }
-    
-        List<List<Character>> rows = new ArrayList<>(numRows);
+        
+        int n = s.length();
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < numRows; i++) {
-            rows.add(new ArrayList<>());
-        }
-        
-        int index = 0, phase = 0;
-        while (index < s.length()) {
-            while (phase < numRows && index < s.length()) {
-                rows.get(phase++).add(s.charAt(index++));
-            }
-            phase -= 2;
-            while (phase >= 0 && index < s.length()) {
-                rows.get(phase--).add(s.charAt(index++));
-            }
-            phase += 2;
-        }
-        
-        StringBuilder res = new StringBuilder();
-        for (List<Character> row : rows) {
-            for (Character character : row) {
-                res.append(character);
+            if (i == 0 || i == numRows - 1) {
+                for (int j = i; j < n; j += 2 * numRows - 2) {
+                    sb.append(s.charAt(j));
+                }
+            } else {
+                for (int j1 = i, j2 = 2 * numRows - 2 - i; j1 < n || j2 < n; j1 += 2 * numRows - 2, j2 += 2 * numRows - 2) {
+                    if (j1 < n) {
+                        sb.append(s.charAt(j1));
+                    }
+                    
+                    if (j2 < n) {
+                        sb.append(s.charAt(j2));
+                    }
+                }
             }
         }
         
-        return new String(res);
+        return sb.toString();
     }
     
     public static void main(String[] args) {
         String s = "PAYPALISHIRING";
         int numRows = 3;
-    
+        
         System.out.println(new Solution().convert(s, numRows));
     }
 }

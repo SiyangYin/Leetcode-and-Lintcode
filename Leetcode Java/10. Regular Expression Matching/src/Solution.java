@@ -1,23 +1,19 @@
 public class Solution {
     public boolean isMatch(String s, String p) {
-        boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
-        dp[0][0] = true;
-        for (int i = 0; i <= s.length(); i++) {
-            for (int j = 1; j <= p.length(); j++) {
-                if (j < p.length() && p.charAt(j) == '*') {
-                    continue;
-                }
-                
-                if (i >= 1 && p.charAt(j - 1) != '*') {
-                    dp[i][j] = dp[i - 1][j - 1] && (p.charAt(j - 1) == '.' || p.charAt(j - 1) == s.charAt(i - 1));
-                }
-                
-                if (p.charAt(j - 1) == '*') {
-                    dp[i][j] = dp[i][j - 2] || (i > 0 && dp[i - 1][j] && (p.charAt(j - 2) == s.charAt(i - 1) || p.charAt(j - 2) == '.'));
+        int n = s.length(), m = p.length();
+        boolean[][] f = new boolean[n + 1][m + 1];
+        f[0][0] = true;
+        
+        for (int j = 1; j <= m; j++) {
+            for (int i = 0; i <= n; i++) {
+                if (p.charAt(j - 1) != '*') {
+                    f[i][j] = i > 0 && f[i - 1][j - 1] && (p.charAt(j - 1) == '.' || p.charAt(j - 1) == s.charAt(i - 1));
+                } else {
+                    f[i][j] = f[i][j - 2] || (i > 0 && f[i - 1][j] && (p.charAt(j - 2) == s.charAt(i - 1) || p.charAt(j - 2) == '.'));
                 }
             }
         }
         
-        return dp[s.length()][p.length()];
+        return f[n][m];
     }
 }
