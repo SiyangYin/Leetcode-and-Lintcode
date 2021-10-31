@@ -1,22 +1,24 @@
 public class Solution {
     public boolean canJump(int[] nums) {
-        boolean[] reachable = new boolean[nums.length];
-        reachable[nums.length - 1] = true;
-        for (int i = nums.length - 2; i >= 0; i--) {
-            boolean reachable0 = false;
-            for (int j = Math.min(i + nums[i], nums.length - 1); j >= i + 1; j--) {
-                reachable0 |= reachable[j];
-                if (reachable0) {
-                    break;
+        if (nums == null || nums.length == 0) {
+            return false;
+        }
+    
+        int farthest = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (i <= farthest) {
+                farthest = Math.max(farthest, i + nums[i]);
+                if (farthest >= nums.length - 1) {
+                    return true;
                 }
             }
-            reachable[i] = reachable0;
         }
-        return reachable[0];
+        
+        return false;
     }
     
-    
     public static void main(String[] args) {
-        System.out.println(new Solution().canJump(new int[]{3, 2, 1, 0, 4}));
+        System.out.println(new Solution().canJump(new int[]{2, 3, 1, 1, 4}));
+        System.out.println(new Solution().canJump(new int[]{1, 0, 10, 1, 4}));
     }
 }

@@ -14,6 +14,7 @@ public class Solution {
         if (strs == null || strs.length == 0) {
             return "";
         }
+        
         return longestCP(strs, 0, strs.length - 1);
     }
     

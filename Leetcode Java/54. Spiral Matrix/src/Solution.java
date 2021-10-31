@@ -3,61 +3,34 @@ import java.util.List;
 
 public class Solution {
     public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> res = new ArrayList<>();
+        int m = matrix.length, n = matrix[0].length;
         
-        List<Integer> list = new ArrayList<>();
-        if (matrix == null || matrix.length == 0) {
-            return list;
-        }
-        int left, right, bottom, top;
-        left = 0; right = matrix[0].length - 1;
-        bottom = matrix.length - 1; top = 0;
-        while (left <= right && top <= bottom) {
-            for (int i = left; i <= right; i++) {
-                list.add(matrix[top][i]);
+        int[] d = {0, 1, 0, -1, 0};
+        int x = 0, y = 0, count = 0;
+        while (count < m * n) {
+            for (int i = 0; i < 4; i++) {
+                while (0 <= x && x < m && 0 <= y && y < n && matrix[x][y] != -1) {
+                    res.add(matrix[x][y]);
+                    count++;
+                    matrix[x][y] = -1;
+                    x += d[i];
+                    y += d[i + 1];
+                }
+                
+                x -= d[i];
+                y -= d[i + 1];
+                x += d[i + 1];
+                y += d[(i + 2) % 4];
             }
-            top++;
-            for (int i = top; i <= bottom; i++) {
-                list.add(matrix[i][right]);
-            }
-            right--;
-            for (int i = right; i >= left; i--) {
-                list.add(matrix[bottom][i]);
-            }
-            bottom--;
-            for (int i = bottom; i >= top; i--) {
-                list.add(matrix[i][left]);
-            }
-            left++;
-        }
-        while (list.size() > matrix.length * matrix[0].length) {
-            list.remove(list.size() - 1);
         }
         
-        return list;
+        
+        return res;
     }
     
     public static void main(String[] args) {
-        int[][] matrix = new int[3][4];
-        for (int i = 1; i <= 12; i++) {
-            matrix[(i - 1) / 4][(i - 1) % 4] = i;
-        }
-    
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                System.out.print(matrix[i][j] + "\t");
-            }
-            System.out.println();
-        }
-    
-        System.out.println(new Solution().spiralOrder(matrix));
-        
-        int[][] matrix1 = new int[1][1];
-        matrix1[0][0] = 1;
-        System.out.println(new Solution().spiralOrder(matrix1));
-        
-        int[][] matrix2 = new int[2][1];
-        matrix2[0][0] = 3;
-        matrix2[1][0] = 2;
-        System.out.println(new Solution().spiralOrder(matrix2));
+        int[][] mat = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        System.out.println(new Solution().spiralOrder(mat));
     }
 }
