@@ -1,23 +1,14 @@
-import java.util.Arrays;
-
 public class Solution {
-    
     public void sortColors(int[] nums) {
-        int zero = -1;  // [0...zero]==0
-        int two = nums.length;  // [two...nums.length-1]==2
-        int index = 0;
-        while (index < two) {
-            if (nums[index] == 0) {
-                swap(nums, ++zero, index++);
-            } else if (nums[index] == 2) {
-                swap(nums, --two, index);
+        for (int i = 0, j = 0, k = nums.length - 1; j <= k; ) {
+            if (nums[j] == 0) {
+                swap(nums, i++, j++);
+            } else if (nums[j] == 2) {
+                swap(nums, j, k--);
             } else {
-                index++;
+                j++;
             }
-//            System.out.println(index + " " + zero);
         }
-        
-        System.out.println(Arrays.toString(nums));
     }
     
     private void swap(int[] nums, int i, int j) {

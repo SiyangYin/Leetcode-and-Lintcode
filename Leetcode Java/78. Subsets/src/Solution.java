@@ -11,13 +11,11 @@ public class Solution {
         return result;
     }
     
-    private void helper(List<List<Integer>> result, List<Integer> list,
-                               int[] nums, int pos) {
-        result.add(new ArrayList<>(list));
-        
+    private void helper(List<List<Integer>> res, List<Integer> list, int[] nums, int pos) {
+        res.add(new ArrayList<>(list));
         for (int i = pos; i < nums.length; i++) {
             list.add(nums[i]);
-            helper(result, list, nums, i + 1);
+            helper(res, list, nums, i + 1);
             list.remove(list.size() - 1);
         }
     }

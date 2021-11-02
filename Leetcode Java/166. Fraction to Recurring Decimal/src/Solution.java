@@ -17,14 +17,9 @@ public class Solution {
         
         sb.append('.');
         Map<Long, Integer> map = new HashMap<>();
-        while (!map.containsKey(n)) {
+        while (n != 0 && !map.containsKey(n)) {
             map.put(n, sb.length());
-            if (n != 0) {
-                sb.append(n * 10 / d);
-            } else {
-                break;
-            }
-            
+            sb.append(n * 10 / d);
             n = n * 10 % d;
         }
         
@@ -37,7 +32,7 @@ public class Solution {
     }
     
     public static void main(String[] args) {
-//        System.out.println(new Solution().fractionToDecimal(1, 2));
-        System.out.println(new Solution().fractionToDecimal(-1, Integer.MIN_VALUE));
+        System.out.println(new Solution().fractionToDecimal(1, 49));
+//        System.out.println(new Solution().fractionToDecimal(-1, Integer.MIN_VALUE));
     }
 }

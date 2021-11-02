@@ -1,37 +1,34 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class Solution {
     public String minWindow(String s, String t) {
-        int[] count = new int[128], tcount = new int[128];
+        Map<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < t.length(); i++) {
-            tcount[t.charAt(i)]++;
+            char ch = t.charAt(i);
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
         }
         
-        int len = s.length() + 1;
-        String res = "";
+        int cnt = map.size(), l = -1, r = -1;
         for (int i = 0, j = 0; i < s.length(); i++) {
-            count[s.charAt(i)]++;
+            char ch = s.charAt(i);
+            map.put(ch, map.getOrDefault(ch, 0) - 1);
+            if (map.get(ch) == 0) {
+                cnt--;
+            }
             
-            while (j <= i && check(count, tcount)) {
-                if (i - j + 1 < len) {
-                    res = s.substring(j, i + 1);
-                    len = i - j + 1;
-                }
-                
-                count[s.charAt(j)]--;
+            while (cnt == 0 && map.get(s.charAt(j)) < 0) {
+                map.put(s.charAt(j), map.get(s.charAt(j)) + 1);
                 j++;
             }
-        }
-        
-        return res;
-    }
-    
-    private boolean check(int[] count, int[] tcount) {
-        for (int i = 0; i < 128; i++) {
-            if (count[i] < tcount[i]) {
-                return false;
+            
+            if (cnt == 0 && (l == -1 || i - j < r - l)) {
+                l = j;
+                r = i;
             }
         }
         
-        return true;
+        return l == -1 ? "" : s.substring(l, r + 1);
     }
     
     public static void main(String[] args) {

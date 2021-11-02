@@ -3,28 +3,17 @@ import java.util.Deque;
 
 public class Solution {
     public int longestValidParentheses(String s) {
-        if (s == null || s.isEmpty()) {
-            return 0;
-        }
-        
         int res = 0;
-        
-        Deque<Integer> stack = new ArrayDeque<>();
-        int start = 0;
-    
+        Deque<Integer> stk = new ArrayDeque<>();
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '(') {
-                stack.push(i);
+                stk.push(i);
             } else {
-                if (stack.isEmpty()) {
-                    start = i + 1;
+                if (!stk.isEmpty() && s.charAt(stk.peek()) == '(') {
+                    stk.pop();
+                    res = Math.max(res, i - (stk.isEmpty() ? -1 : stk.peek()));
                 } else {
-                    stack.pop();
-                    if (stack.isEmpty()) {
-                        res = Math.max(res, i - start + 1);
-                    } else {
-                        res = Math.max(res, i - stack.peek());
-                    }
+                    stk.push(i);
                 }
             }
         }
