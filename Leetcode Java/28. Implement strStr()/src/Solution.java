@@ -1,24 +1,29 @@
 public class Solution {
     public int strStr(String s, String p) {
-        if (s == null || p == null) {
+        if (s.length() < p.length()) {
             return -1;
         }
         
-        if (p.isEmpty()) {
+        long hash = 0, P = 131, hashP = 0, pow = 1;
+        for (int i = 0; i < p.length(); i++) {
+            hashP = hashP * P + p.charAt(i);
+            pow *= P;
+        }
+        
+        for (int i = 0; i < p.length(); i++) {
+            hash = hash * P + s.charAt(i);
+        }
+        
+        if (hash == hashP) {
             return 0;
         }
-    
-        for (int i = 0; i + p.length() - 1 < s.length(); i++) {
-            int idx = 0;
-            while (idx < p.length()) {
-                if (s.charAt(i + idx) != p.charAt(idx)) {
-                    break;
-                }
-                idx++;
-            }
+        
+        for (int i = p.length(); i < s.length(); i++) {
+            hash = hash * P + s.charAt(i);
+            hash -= s.charAt(i - p.length()) * pow;
             
-            if (idx == p.length()) {
-                return i;
+            if (hash == hashP) {
+                return i - p.length() + 1;
             }
         }
         
