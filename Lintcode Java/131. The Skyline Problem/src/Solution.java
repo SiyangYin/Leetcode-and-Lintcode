@@ -1,16 +1,16 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.PriorityQueue;
+import java.util.TreeMap;
 
 public class Solution {
-    
     class Pair {
-        int idx, height, flag;
-    
-        public Pair(int idx, int height, int flag) {
-            this.idx = idx;
-            this.height = height;
-            this.flag = flag;
+        int pos, h, stat;
+        
+        public Pair(int pos, int h, int stat) {
+            this.pos = pos;
+            this.h = h;
+            this.stat = stat;
         }
     }
     
@@ -18,20 +18,57 @@ public class Solution {
      * @param buildings: A list of lists of integers
      * @return: Find the outline of those buildings
      */
+    
     public List<List<Integer>> buildingOutline(int[][] buildings) {
         // write your code here
-        List<List<Integer>> res = new ArrayList<>();
-    
-        List<Pair> list = new ArrayList<>();
-        for (int[] building : buildings) {
-            list.add(new Pair(building[0], building[2], 1));
-            list.add(new Pair(building[1], building[2], 0));
+        Pair[] pairs = new Pair[buildings.length << 1];
+        for (int i = 0; i < buildings.length; i++) {
+            int[] b = buildings[i];
+            pairs[i * 2] = new Pair(b[0], b[2], 0);
+            pairs[i * 2 + 1] = new Pair(b[1], b[2], 1);
         }
         
-        list.sort((p1, p2) -> p1.idx != p2.idx ? Integer.compare(p1.idx, p2.idx) : Integer.compare(p1.flag, p2.flag));
+        Arrays.sort(pairs, (p1, p2) -> {
+            if (p1.pos != p2.pos) {
+                return Integer.compare(p1.pos, p2.pos);
+            }
+            
+            if (p1.stat != p2.stat) {
+                return Integer.compare(p1.stat, p2.stat);
+            }
+            
+            return Integer.compare(p1.h, p2.h);
+        });
         
-        PriorityQueue<Pair> maxHeap = new PriorityQueue<>();
+        TreeMap<Integer, Integer> hMap = new TreeMap<>();
+        int preHeight = 0, prePos = 0;
+        List<List<Integer>> res = new ArrayList<>();
+        for (Pair pair : pairs) {
+            if (pair.stat == 0) {
+                hMap.put(pair.h, hMap.getOrDefault(pair.h, 0) + 1);
+            } else {
+                hMap.put(pair.h, hMap.get(pair.h) - 1);
+                if (hMap.get(pair.h) == 0) {
+                    hMap.remove(pair.h);
+                }
+            }
+            
+            int curHeight = hMap.isEmpty() ? 0 : hMap.lastKey();
+            if (preHeight != curHeight) {
+                if (pair.pos != prePos && preHeight != 0) {
+                    res.add(Arrays.asList(prePos, pair.pos, preHeight));
+                }
+                
+                prePos = pair.pos;
+                preHeight = curHeight;
+            }
+        }
         
         return res;
+    }
+    
+    public static void main(String[] args) {
+        int[][] b = {{2, 9, 10}, {2, 7, 15}, {5, 12, 12}, {15, 20, 10}, {19, 24, 8}};
+        System.out.println(new Solution().buildingOutline(b));
     }
 }
