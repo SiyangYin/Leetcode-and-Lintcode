@@ -28,17 +28,7 @@ public class Solution {
             pairs[i * 2 + 1] = new Pair(b[1], b[2], 1);
         }
         
-        Arrays.sort(pairs, (p1, p2) -> {
-            if (p1.pos != p2.pos) {
-                return Integer.compare(p1.pos, p2.pos);
-            }
-            
-            if (p1.stat != p2.stat) {
-                return Integer.compare(p1.stat, p2.stat);
-            }
-            
-            return Integer.compare(p1.h, p2.h);
-        });
+        Arrays.sort(pairs, (p1, p2) -> p1.pos != p2.pos ? Integer.compare(p1.pos, p2.pos) : Integer.compare(p1.stat, p2.stat));
         
         TreeMap<Integer, Integer> hMap = new TreeMap<>();
         int preHeight = 0, prePos = 0;
@@ -68,7 +58,7 @@ public class Solution {
     }
     
     public static void main(String[] args) {
-        int[][] b = {{2, 9, 10}, {2, 7, 15}, {5, 12, 12}, {15, 20, 10}, {19, 24, 8}};
+        int[][] b = {{1, 3, 3}, {3, 4, 3}};
         System.out.println(new Solution().buildingOutline(b));
     }
 }
