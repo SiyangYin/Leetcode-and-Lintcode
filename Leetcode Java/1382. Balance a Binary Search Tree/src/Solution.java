@@ -47,7 +47,6 @@ public class Solution {
     }
 }
 
-
 class TreeNode {
     int val;
     TreeNode left, right;

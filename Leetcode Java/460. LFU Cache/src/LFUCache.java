@@ -54,13 +54,13 @@ public class LFUCache {
     }
     
     private Map<Integer, Node> nodeMap;
-    private Map<Integer, LinkedList> freq;
+    private Map<Integer, LinkedList> freqMap;
     private int capacity, minFreq;
     
     public LFUCache(int capacity) {
         nodeMap = new HashMap<>();
-        freq = new HashMap<>();
-        freq.put(1, new LinkedList());
+        freqMap = new HashMap<>();
+        freqMap.put(1, new LinkedList());
         this.capacity = capacity;
     }
     
@@ -92,23 +92,23 @@ public class LFUCache {
         
         Node node = new Node(key, value);
         nodeMap.put(key, node);
-        freq.get(1).addFirst(node);
+        freqMap.get(1).addFirst(node);
         minFreq = 1;
     }
     
     private void update(Node node) {
-        LinkedList list = freq.get(node.freq);
+        LinkedList list = freqMap.get(node.freq);
         list.remove(node);
         if (node.freq == minFreq && list.size == 0) {
             minFreq++;
         }
         node.freq++;
-        freq.putIfAbsent(node.freq, new LinkedList());
-        freq.get(node.freq).addFirst(node);
+        freqMap.putIfAbsent(node.freq, new LinkedList());
+        freqMap.get(node.freq).addFirst(node);
     }
     
     private void removeOldest() {
-        LinkedList list = freq.get(minFreq);
+        LinkedList list = freqMap.get(minFreq);
         Node node = list.removeLast();
         nodeMap.remove(node.key);
     }
