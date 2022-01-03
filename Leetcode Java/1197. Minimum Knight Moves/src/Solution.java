@@ -3,16 +3,16 @@ public class Solution {
         if (x == 0 && y == 0) {
             return 0;
         }
-    
+        
         x = Math.abs(x);
         y = Math.abs(y);
-    
+        
         if (x < y) {
             int tmp = x;
             x = y;
             y = tmp;
         }
-    
+        
         return f(x, y);
     }
     
@@ -23,13 +23,23 @@ public class Solution {
         if (x == 2 && y == 2) {
             return 4;
         }
-    
-        int delta = x - y;
-        if (y > delta) {
-            return (int) (delta - 2 * Math.floor((double) (delta - y) / 3.0));
-        } else {
-            return (int) (delta - 2 * Math.floor((double) (delta - y) / 4.0));
+        
+        if (y <= x - y) {
+            if (x % 2 == 0) {
+                return x / 2 + (x / 2 - y) % 2;
+            } else {
+                return (x + 1) / 2 + ((x + 1) / 2 - y + 1) % 2;
+            }
         }
+        
+        int d = (2 * y - x) / 3;
+        if (d == 0) {
+            d = 1;
+        }
+        
+        x += d;
+        y -= d;
+        return f(x, y);
     }
     
     public static void main(String[] args) {
