@@ -17,7 +17,7 @@ public class Solution {
             pow[i] = pow[i - 1] * 131;
         }
         
-        int l = 0, r = n;
+        int l = 1, r = n;
         while (l < r) {
             int mid = l + (r - l + 1 >> 1);
             if (check(mid, hash, pow, k)) {
