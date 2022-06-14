@@ -10,7 +10,7 @@ public class Solution2 {
                 i++;
                 j++;
                 if (j == p.length()) {
-                    return j - i;
+                    return i - j;
                 }
             } else {
                 j = ne[j];
