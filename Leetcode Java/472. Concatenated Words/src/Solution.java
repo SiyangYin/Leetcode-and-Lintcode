@@ -1,38 +1,46 @@
 import java.util.*;
 
 public class Solution {
+    long P = 131;
+    
     public List<String> findAllConcatenatedWordsInADict(String[] words) {
         List<String> res = new ArrayList<>();
-        Arrays.sort(words, (w1, w2) -> Integer.compare(w1.length(), w2.length()));
-        
-        Set<String> set = new HashSet<>();
-        for (String word : words) {
-            if (word.length() >= words[0].length() * 2) {
-                if (check(word, set)) {
-                    res.add(word);
-                }
+        Set<Long> set = new HashSet<>();
+        for (String s : words) {
+            long ha = 0;
+            for (int i = 0; i < s.length(); i++) {
+                ha = ha * P + s.charAt(i);
             }
-            set.add(word);
+            set.add(ha);
+        }
+        
+        for (String word : words) {
+            if (check(word, set)) {
+                res.add(word);
+            }
         }
         
         return res;
     }
     
-    private boolean check(String s, Set<String> set) {
-        int[] dp = new int[s.length() + 1];
-        Arrays.fill(dp, -1);
-        dp[0] = 0;
-        for (int i = 0; i <= s.length(); i++) {
-            if (dp[i] == -1) {
+    private boolean check(String s, Set<Long> set) {
+        int n = s.length();
+        int[] f = new int[n + 1];
+        Arrays.fill(f, -1);
+        f[0] = 0;
+        for (int i = 0; i <= n; i++) {
+            if (f[i] == -1) {
                 continue;
             }
             
-            for (int j = s.length() - i; j > 0; j--) {
-                if (set.contains(s.substring(i, i + j))) {
-                    dp[i + j] = Math.max(dp[i + j], dp[i] + 1);
-                    if (dp[s.length()] > 1) {
-                        return true;
-                    }
+            long ha = 0;
+            for (int j = i + 1; j <= n; j++) {
+                ha = ha * P + s.charAt(j - 1);
+                if (set.contains(ha)) {
+                    f[j] = Math.max(f[j], f[i] + 1);
+                }
+                if (f[n] > 1) {
+                    return true;
                 }
             }
         }
