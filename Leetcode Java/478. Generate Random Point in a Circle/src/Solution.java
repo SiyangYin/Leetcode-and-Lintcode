@@ -2,8 +2,8 @@ import java.util.Random;
 
 public class Solution {
     
-    private Random random;
-    private double r, x, y;
+    Random random;
+    double r, x, y;
     
     public Solution(double radius, double x_center, double y_center) {
         random = new Random();
