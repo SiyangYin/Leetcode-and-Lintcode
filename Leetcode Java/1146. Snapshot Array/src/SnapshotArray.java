@@ -36,4 +36,12 @@ public class SnapshotArray {
         
         return list.get(l)[1];
     }
+
+    public static void main(String[] args) {
+        SnapshotArray snapshotArray = new SnapshotArray(3);
+        snapshotArray.set(0, 5);
+        System.out.println(snapshotArray.snap());
+        snapshotArray.set(0, 6);
+        System.out.println(snapshotArray.get(0, 0));
+    }
 }
