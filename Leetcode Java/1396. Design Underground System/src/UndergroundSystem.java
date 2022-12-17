@@ -81,4 +81,20 @@ public class UndergroundSystem {
         
         return routeInfo.totalTime / routeInfo.count;
     }
+
+    public static void main(String[] args) {
+        UndergroundSystem UndergroundSystem = new UndergroundSystem();
+        UndergroundSystem.checkIn(45,"Leyton",3);
+        UndergroundSystem.checkIn(32,"Paradise",8);
+        UndergroundSystem.checkIn(27,"Leyton",10);
+        UndergroundSystem.checkOut(45,"Waterloo",15);
+        UndergroundSystem.checkOut(27,"Waterloo",20);
+        UndergroundSystem.checkOut(32,"Cambridge",22);
+        System.out.println(UndergroundSystem.getAverageTime("Paradise","Cambridge"));
+        System.out.println(UndergroundSystem.getAverageTime("Leyton","Waterloo"));
+        UndergroundSystem.checkIn(10,"Leyton",24);
+        System.out.println(UndergroundSystem.getAverageTime("Leyton","Waterloo"));
+        UndergroundSystem.checkOut(10,"Waterloo",38);
+        System.out.println(UndergroundSystem.getAverageTime("Leyton","Waterloo"));
+    }
 }
